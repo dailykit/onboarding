@@ -3,12 +3,17 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  /* height: 40vmin; */
+  position: absolute;
+width: 127.29px;
+height: 36px;
+left: 68px;
+top: 48px;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  /* background-color: #282c34; */
+  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,4 +24,163 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+.left-panel {
+  position: absolute;
+  width: 38.4vw;
+  height: 100vh;
+  float: left;
+  background: #FAFAFA;
+  left: 0;
+  top: 0;
+}
+.right-panel {
+  width : 61.6vw;
+  height: 100vh;
+}
+
+.outer-circle {
+  position: absolute;
+width: 68px;
+height: 68px;
+left: 80px;
+top: 269px;
+
+border: 2px solid rgba(85, 91, 110, 0.3);
+box-sizing: border-box;
+}
+
+.main-text {
+  position: absolute;
+width: 602px;
+height: 142px;
+left: 588px;
+top: 228px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: 300;
+font-size: 48px;
+line-height: 148%;
+/* or 71px */
+
+
+color: #555B6E;
+}
+
+.caption {
+  position: absolute;
+  width: 133px;
+  height: 21px;
+  left: 588px;
+  top: 406px;
+  
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  /* identical to box height */
+  
+  
+  color: #888D9D;
+  
+}
+
+.button {
+  position: absolute;
+width: 249px;
+height: 56px;
+left: 588px;
+top: 463px;
+
+background: #04A777;
+border-radius: 28px;
+}
+
+.button-text {
+  position: absolute;
+  width: 166px;
+  height: 28px;
+  left: 629.5px;
+  top: 481.24px;
+  
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  
+  color: #FFFFFF;  
+}
+
+.company {
+  position: absolute;
+width: 196px;
+height: 19px;
+left: 164px;
+top: 282px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 19px;
+/* identical to box height */
+
+
+color: #555B6E;
+}
+
+.company-caption {
+position: absolute;
+width: 269px;
+height: 16px;
+left: 164px;
+top: 311px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 16px;
+
+color: #888D9D;
+}
+
+.host {
+  position: absolute;
+width: 125px;
+height: 19px;
+left: 164px;
+top: 441px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 19px;
+/* identical to box height */
+
+
+color: #555B6E;
+
+}
+
+.host-caption {
+  position: absolute;
+width: 248px;
+height: 16px;
+left: 164px;
+top: 470px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 16px;
+
+color: #888D9D;
 }
