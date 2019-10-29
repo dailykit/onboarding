@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
 
-const startRegistration = () => {};
-
 function LandingPage() {
   return (
     <div>
@@ -33,11 +31,7 @@ function LandingPage() {
         <p className="caption">Lets get started</p>
         <Link to={`/register/?basicinfo=#step1`}>
           {" "}
-          <Button
-            variant="success"
-            className="button"
-            onClick={startRegistration}
-          >
+          <Button variant="success" className="button">
             <span style={{ color: "#FFFFFF" }}>LETS BEGIN </span>
           </Button>
         </Link>

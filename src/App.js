@@ -19,16 +19,3 @@ function App() {
 }
 
 export default App;
-
-// <body>
-
-// </body>
-// <footer></footer>
-
-//           <div className="outer-circle"> </div>
-// <span className="button-text">LETS BEGIN</span>
-
-// <div className="button">
-// {" "}
-// <span>LETS BEGIN</span>
-// </div>
