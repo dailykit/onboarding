@@ -167,8 +167,6 @@ font-weight: normal;
 font-size: 16px;
 line-height: 19px;
 /* identical to box height */
-
-
 color: #555B6E;
 
 }
@@ -243,4 +241,16 @@ box-shadow: inset 2px -2px 10px rgba(0, 0, 0, 0.5);
   position: relative;
   padding-top: 10.79%;
   margin-left: 30.7%;
+}
+
+.grid-container {
+  display: inline-grid;
+  grid-template-columns: auto;
+  padding: 10px;
+}
+
+.grid-item {
+  padding: 20px;
+  font-size: 30px;
+  text-align: left;
 }
