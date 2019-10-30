@@ -7,14 +7,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
-import FilledInput from "@material-ui/core/FilledInput";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -24,7 +24,13 @@ const useStyles = makeStyles(theme => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 200
+    width: 300
+  },
+  button: {
+    margin: theme.spacing(1)
+  },
+  input: {
+    display: "none"
   }
 }));
 
@@ -72,17 +78,23 @@ const BasicInfo = ({ match }) => {
       </table>
 
       <div className="box inner-info">
-        <div> Register with your work email</div>
-        <form className={classes.container} noValidate autoComplete="off">
-          <div>
-            <TextField
-              id="standard-basic"
-              className={classes.textField}
-              label="work email"
-              margin="normal"
-              onChange={handleChange("email")}
-            />
-
+        <div className="grid-container" margin="auto">
+          <div class="grid-item work-caption">
+            {" "}
+            Register with your work address
+          </div>
+          <div class="grid-item">
+            <form className={classes.container} noValidate autoComplete="off">
+              <TextField
+                id="standard-basic"
+                className={classes.textField}
+                label="work email"
+                margin="normal"
+                onChange={handleChange("email")}
+              />
+            </form>
+          </div>
+          <div className="grid-item">
             <FormControl className={clsx(classes.margin, classes.textField)}>
               <InputLabel htmlFor="standard-adornment-password">
                 Password
@@ -106,7 +118,27 @@ const BasicInfo = ({ match }) => {
               />
             </FormControl>
           </div>
-        </form>
+
+          <div className="grid-item terms">
+            <FormControlLabel
+              control={<Checkbox value="checkedC" color="default" />}
+              label="I agree to terms & conditions, cancellation policy and privacy policy."
+            />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <table className="icon-table" style={{ "margin-top": "auto" }}>
+          <tr>
+            <td>
+              <Button className={classes.button}> &lt; GO BACK</Button>
+            </td>
+            <td>
+              <Button className={classes.button}> PROCEED &gt;</Button>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   );
