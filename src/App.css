@@ -213,7 +213,7 @@ table, th, td {
 
 .icon-table {
   margin-left : 5.35%;
-  margin-top : 6.42%;
+  margin-top : 5%;
 }
 
 .heading {
@@ -235,7 +235,7 @@ text-align: center;
 top: 144px; */
 
 background: #FFFFFF;
-box-shadow: inset 2px -2px 10px rgba(0, 0, 0, 0.5);
+box-shadow: inset 2px -2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .inner-table {
@@ -273,9 +273,15 @@ box-shadow: inset 2px -2px 10px rgba(0, 0, 0, 0.5);
 
 .terms {
   font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 14px;
-line-height: 20px;
-color: #888D9D;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: #888D9D;
+}
+
+.status-bar {
+  width: 33%;
+  height: 4px;
+  background: #04A777;
 }

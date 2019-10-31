@@ -78,6 +78,7 @@ const BasicInfo = ({ match }) => {
       </table>
 
       <div className="box inner-info">
+        <div className="status-bar"></div>
         <div className="grid-container" margin="auto">
           <div class="grid-item work-caption">
             {" "}
