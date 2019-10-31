@@ -133,10 +133,25 @@ const BasicInfo = ({ match }) => {
         <table className="icon-table" style={{ "margin-top": "auto" }}>
           <tr>
             <td>
-              <Button className={classes.button}> &lt; GO BACK</Button>
+              <Button className={classes.button} style={{ color: "#04A777" }}>
+                {" "}
+                &lt; GO BACK
+              </Button>
             </td>
             <td>
-              <Button className={classes.button}> PROCEED &gt;</Button>
+              <Button
+                className={classes.button}
+                style={{
+                  background: "#04A777",
+                  color: "#FFFFFF",
+                  borderRadius: "19px",
+                  width: "144px",
+                  height: "38px"
+                }}
+              >
+                {" "}
+                PROCEED &gt;
+              </Button>
             </td>
           </tr>
         </table>
