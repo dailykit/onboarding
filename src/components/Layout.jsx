@@ -3,15 +3,15 @@ import styled from 'styled-components'
 
 import LogoMark from '../assets/images/logomark.png'
 
-import Step1 from '../pages/basicInfo/step1'
+import RegisterEmail from '../pages/basicInfo/RegisterEmail'
 
 const Layout = props => {
 	const selectStep = step => {
 		switch (step) {
 			case 'register-email':
-				return <Step1 />
+				return <RegisterEmail />
 			default:
-				return <Step1 />
+				return <RegisterEmail />
 		}
 	}
 	return (
@@ -97,20 +97,11 @@ const Aside = styled.aside`
 		color: #555b6e;
 		margin-bottom: 48px;
 		position: relative;
-		&::before {
-			content: '';
-			position: absolute;
-			top: 10px;
-			left: -32px;
-			width: 2px;
-			height: calc(100% - 32px);
-			background: #e1e1e1;
-		}
 		&::after {
 			content: '';
 			position: absolute;
 			top: -2px;
-			left: -41px;
+			left: -42px;
 			width: 18px;
 			height: 18px;
 			border: 2px solid #e1e1e1;
@@ -130,10 +121,21 @@ const Aside = styled.aside`
 			&::after {
 				content: '';
 				position: absolute;
+				top: calc(100% - 26px);
 				left: -35px;
 				width: 8px;
 				height: 8px;
 				border-radius: 50%;
+				background: #e1e1e1;
+				z-index: 10;
+			}
+			&::before {
+				content: '';
+				position: absolute;
+				top: -24px;
+				left: -32px;
+				width: 2px;
+				height: 48px;
 				background: #e1e1e1;
 			}
 		}
