@@ -40,7 +40,7 @@ const Register = () => {
 			<main>
 				<h1>Set up your account with us in 2 simple steps.</h1>
 				<h3>Let's get started!</h3>
-				<Link to="/">
+				<Link to="/register/basic-information/register-email">
 					<button>Let's Begin</button>
 				</Link>
 			</main>

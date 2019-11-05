@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
 
 import Register from './pages/register'
+import Layout from './components/Layout'
 
 const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,500i,700,700i,900&display=swap');
@@ -19,6 +20,7 @@ const App = () => (
 		<GlobalStyle />
 		<Switch>
 			<Route exact path="/" component={Register} />
+			<Route exact path="/register/:part/:step" component={Layout} />
 		</Switch>
 	</Router>
 )
