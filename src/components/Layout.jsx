@@ -1,19 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { Context } from '../state/index'
+
 import LogoMark from '../assets/images/logomark.png'
 
-import RegisterEmail from '../pages/basicInfo/RegisterEmail'
-
-const Layout = props => {
-	const selectStep = step => {
-		switch (step) {
-			case 'register-email':
-				return <RegisterEmail />
-			default:
-				return <RegisterEmail />
-		}
-	}
+const Layout = ({ children }) => {
+	const { dispatch } = React.useContext(Context)
+	const nextPage = () => dispatch({ type: 'NEXT_PAGE' })
+	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
 	return (
 		<Step>
 			<Header>
@@ -22,7 +17,7 @@ const Layout = props => {
 				</span>
 				<h1>Basic Information</h1>
 			</Header>
-			<Main>{selectStep(props.match.params.step)}</Main>
+			<Main>{children}</Main>
 			<Aside>
 				<ul>
 					Basic Information
@@ -39,8 +34,8 @@ const Layout = props => {
 				</ul>
 			</Aside>
 			<Footer>
-				<button>Back</button>
-				<button>Next</button>
+				<button onClick={() => prevPage()}>Back</button>
+				<button onClick={() => nextPage()}>Next</button>
 			</Footer>
 		</Step>
 	)

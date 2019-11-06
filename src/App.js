@@ -5,6 +5,11 @@ import { createGlobalStyle } from 'styled-components'
 import Register from './pages/register'
 import Layout from './components/Layout'
 
+import RegisterEmail from './pages/basicInfo/RegisterEmail'
+import AboutCompany from './pages/basicInfo/AboutCompany'
+
+import { Context, state as initialState, reducers } from './state/index'
+
 const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,500i,700,700i,900&display=swap');
 	* {
@@ -15,14 +20,41 @@ const GlobalStyle = createGlobalStyle`
 	}
 `
 
-const App = () => (
-	<Router>
-		<GlobalStyle />
-		<Switch>
-			<Route exact path="/" component={Register} />
-			<Route exact path="/register/:part/:step" component={Layout} />
-		</Switch>
-	</Router>
-)
+const App = () => {
+	const [state, dispatch] = React.useReducer(reducers, initialState)
+	return (
+		<Context.Provider value={{ state, dispatch }}>
+			<GlobalStyle />
+			<Router>
+				<Switch>
+					<Route exact path="/" component={Register} />
+					<Route
+						exact
+						path="/register"
+						render={() => {
+							switch (state.step) {
+								case 0:
+									return (
+										<Layout>
+											<RegisterEmail />
+										</Layout>
+									)
+								case 1:
+									return (
+										<Layout>
+											<AboutCompany />
+										</Layout>
+									)
+
+								default:
+									break
+							}
+						}}
+					/>
+				</Switch>
+			</Router>
+		</Context.Provider>
+	)
+}
 
 export default App
