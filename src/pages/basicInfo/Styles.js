@@ -38,7 +38,7 @@ export const Field = styled.div`
 	margin-bottom: 16px;
 	input,
 	select {
-		width: 240px;
+		width: 320px;
 		height: 48px;
 		border: none;
 		border-bottom: 2px solid #e1e1e1;
@@ -52,5 +52,8 @@ export const Field = styled.div`
 				transform: translateY(-64px);
 			}
 		}
+	}
+	select[name='phoneCodes'] {
+		width: auto;
 	}
 `

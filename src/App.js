@@ -9,6 +9,7 @@ import RegisterEmail from './pages/basicInfo/RegisterEmail'
 import AboutCompany from './pages/basicInfo/AboutCompany'
 
 import { Context, state as initialState, reducers } from './state/index'
+import AboutYourself from './pages/basicInfo/AboutYourself'
 
 const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,500i,700,700i,900&display=swap');
@@ -45,9 +46,18 @@ const App = () => {
 											<AboutCompany />
 										</Layout>
 									)
-
+								case 2:
+									return (
+										<Layout>
+											<AboutYourself />
+										</Layout>
+									)
 								default:
-									break
+									return (
+										<Layout>
+											<RegisterEmail />
+										</Layout>
+									)
 							}
 						}}
 					/>
