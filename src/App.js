@@ -7,9 +7,11 @@ import Layout from './components/Layout'
 
 import RegisterEmail from './pages/basicInfo/RegisterEmail'
 import AboutCompany from './pages/basicInfo/AboutCompany'
+import AboutYourself from './pages/basicInfo/AboutYourself'
+
+import Hosting from './pages/setupAccount/Hosting'
 
 import { Context, state as initialState, reducers } from './state/index'
-import AboutYourself from './pages/basicInfo/AboutYourself'
 
 const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,500i,700,700i,900&display=swap');
@@ -50,6 +52,12 @@ const App = () => {
 									return (
 										<Layout>
 											<AboutYourself />
+										</Layout>
+									)
+								case 3:
+									return (
+										<Layout>
+											<Hosting />
 										</Layout>
 									)
 								default:
