@@ -12,6 +12,7 @@ import AboutYourself from './pages/basicInfo/AboutYourself'
 import Hosting from './pages/setupAccount/Hosting'
 
 import { Context, state as initialState, reducers } from './state/index'
+import OnboardSupport from './pages/setupAccount/OnboardSupport'
 
 const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,500i,700,700i,900&display=swap');
@@ -58,6 +59,12 @@ const App = () => {
 									return (
 										<Layout>
 											<Hosting />
+										</Layout>
+									)
+								case 4:
+									return (
+										<Layout>
+											<OnboardSupport />
 										</Layout>
 									)
 								default:
