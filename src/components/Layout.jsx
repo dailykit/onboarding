@@ -6,9 +6,28 @@ import { Context } from '../state/index'
 import LogoMark from '../assets/images/logomark.png'
 
 const Layout = ({ children }) => {
-	const { dispatch } = React.useContext(Context)
+	const { state, dispatch } = React.useContext(Context)
 	const nextPage = () => dispatch({ type: 'NEXT_PAGE' })
 	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
+
+	const evalHeightFirst = step => {
+		if (step === 0) {
+			return 26
+		} else if (step === 1) {
+			return 52
+		} else if (step === 2) {
+			return 77
+		}
+	}
+	const evalHeightSecond = step => {
+		if (step === 3) {
+			return 26
+		} else if (step === 4) {
+			return 52
+		} else if (step === 5) {
+			return 77
+		}
+	}
 	return (
 		<Step>
 			<Header>
@@ -19,19 +38,47 @@ const Layout = ({ children }) => {
 			</Header>
 			<Main>{children}</Main>
 			<Aside>
-				<ul>
+				<Stage height={evalHeightFirst(state.step)}>
 					Basic Information
-					<li>Register with your work email</li>
-					<li>Tell us about your company</li>
-					<li>Tell us about yourseld</li>
-				</ul>
-				<ul>
+					<li
+						className={`${[0, 1, 2, 3, 4, 5].includes(
+							state.step
+						) === true && 'active'}`}>
+						Register with your work email
+					</li>
+					<li
+						className={`${[1, 2, 3, 4, 5].includes(state.step) &&
+							'active'}`}>
+						Tell us about your company
+					</li>
+					<li
+						className={`${[2, 3, 4, 5].includes(state.step) &&
+							'active'}`}>
+						Tell us about yourself
+					</li>
+				</Stage>
+				<Stage height={evalHeightSecond(state.step)}>
 					Setup your Account
-					<li>Hosting</li>
-					<li>Onboarding Support</li>
-					<li>Custom Support</li>
-					<li>Billing Information</li>
-				</ul>
+					{state.step > 2 && (
+						<>
+							<li
+								className={`${[3, 4, 5].includes(state.step) ===
+									true && 'active'}`}>
+								Hosting
+							</li>
+							<li
+								className={`${[4, 5].includes(state.step) ===
+									true && 'active'}`}>
+								Onboarding Support
+							</li>
+							<li
+								className={`${[5].includes(state.step) ===
+									true && 'active'}`}>
+								Custom Support
+							</li>
+						</>
+					)}
+				</Stage>
 			</Aside>
 			<Footer>
 				<button onClick={() => prevPage()}>Back</button>
@@ -86,56 +133,73 @@ const Aside = styled.aside`
 	grid-area: aside;
 	height: calc(100vh - 200px);
 	padding: 32px 0 0 80px;
-	ul {
-		font-size: 24px;
-		line-height: 16px;
-		color: #555b6e;
-		margin-bottom: 48px;
+`
+
+const Stage = styled.ul`
+	font-size: 24px;
+	line-height: 16px;
+	color: #555b6e;
+	margin-bottom: 48px;
+	position: relative;
+	&::before {
+		content: '';
+		position: absolute;
+		top: 18px;
+		left: -32px;
+		width: 2px;
+		height: ${props => `${props.height}%`};
+		z-index: 100;
+		background: #04a777;
+	}
+	&::after {
+		content: '';
+		position: absolute;
+		top: -2px;
+		left: -42px;
+		width: 18px;
+		height: 18px;
+		border: 2px solid #e1e1e1;
+		border-radius: 50%;
+		background: #fafafa;
+	}
+	li {
+		font-size: 14px;
+		height: 48px;
+		display: flex;
+		align-items: center;
+		list-style: none;
+		&:first-child {
+			margin-top: 24px;
+		}
 		position: relative;
 		&::after {
 			content: '';
 			position: absolute;
-			top: -2px;
-			left: -42px;
-			width: 18px;
-			height: 18px;
-			border: 2px solid #e1e1e1;
+			top: calc(100% - 26px);
+			left: -35px;
+			width: 8px;
+			height: 8px;
 			border-radius: 50%;
-			background: #fafafa;
+			background: #e1e1e1;
+			z-index: 10;
 		}
-		li {
-			font-size: 14px;
+		&::before {
+			content: '';
+			position: absolute;
+			top: -24px;
+			left: -32px;
+			width: 2px;
 			height: 48px;
-			display: flex;
-			align-items: center;
-			list-style: none;
-			&:first-child {
-				margin-top: 24px;
-			}
-			position: relative;
+			background: #e1e1e1;
+		}
+		&.active {
 			&::after {
-				content: '';
-				position: absolute;
-				top: calc(100% - 26px);
-				left: -35px;
-				width: 8px;
-				height: 8px;
-				border-radius: 50%;
-				background: #e1e1e1;
-				z-index: 10;
-			}
-			&::before {
-				content: '';
-				position: absolute;
-				top: -24px;
-				left: -32px;
-				width: 2px;
-				height: 48px;
-				background: #e1e1e1;
+				background: #04a777;
 			}
 		}
 	}
 `
+
 const Footer = styled.footer`
 	grid-area: footer;
 	display: flex;
