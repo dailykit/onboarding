@@ -2,8 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Form, Field, Label } from '../basicInfo/Styles'
+import { Context } from '../../state'
 
 const Billing = () => {
+	const { state, dispatch } = React.useContext(Context)
 	const codes = [
 		'+93',
 		'+355',
@@ -249,33 +251,99 @@ const Billing = () => {
 			<h2>Billing Information</h2>
 			<Form>
 				<Field>
-					<input type="text" id="card" required />
+					<input
+						type="text"
+						id="card"
+						required
+						value={state.user_data.billing_info.card_no}
+						onChange={e =>
+							dispatch({
+								type: 'SET_BILLING_CARD',
+								payload: e.target.value
+							})
+						}
+					/>
 					<Label htmlFor="card">Card No.</Label>
 				</Field>
 				<ExtendField>
 					<div>
-						<input type="text" id="expiry" required />
+						<input
+							type="text"
+							id="expiry"
+							required
+							value={state.user_data.billing_info.expiry}
+							onChange={e =>
+								dispatch({
+									type: 'SET_BILLING_EXPIRY',
+									payload: e.target.value
+								})
+							}
+						/>
 						<Label htmlFor="expiry">Expiry Date(dd/mm/yyyy)</Label>
 					</div>
 					<div>
-						<input type="text" id="cvv" required />
+						<input
+							type="text"
+							id="cvv"
+							required
+							value={state.user_data.billing_info.cvv}
+							onChange={e =>
+								dispatch({
+									type: 'SET_BILLING_CVV',
+									payload: e.target.value
+								})
+							}
+						/>
 						<Label htmlFor="cvv">CVV</Label>
 					</div>
 				</ExtendField>
 				<Field>
-					<input type="text" id="name" required />
-					<Label htmlFor="name">Name on Card</Label>
+					<input
+						type="text"
+						id="cardName"
+						required
+						value={state.user_data.billing_info.name}
+						onChange={e =>
+							dispatch({
+								type: 'SET_BILLING_CARD_NAME',
+								payload: e.target.value
+							})
+						}
+					/>
+					<Label htmlFor="cardName">Name on Card</Label>
 				</Field>
 			</Form>
 			<h2>Billing Address</h2>
 			<Form>
 				<Field>
-					<input type="text" id="address" required />
+					<input
+						type="text"
+						id="address"
+						required
+						value={state.user_data.billing_address.address}
+						onChange={e =>
+							dispatch({
+								type: 'SET_BILLING_ADDRESS',
+								payload: e.target.value
+							})
+						}
+					/>
 					<Label htmlFor="address">Enter your Address</Label>
 				</Field>
 				<ExtendField>
 					<div>
-						<input type="text" id="city" required />
+						<input
+							type="text"
+							id="city"
+							required
+							value={state.user_data.billing_address.city}
+							onChange={e =>
+								dispatch({
+									type: 'SET_BILLING_CITY',
+									payload: e.target.value
+								})
+							}
+						/>
 						<Label htmlFor="city">City</Label>
 					</div>
 					<div>
@@ -284,16 +352,43 @@ const Billing = () => {
 							id="zip"
 							max-length="10"
 							required
+							value={state.user_data.billing_address.zip}
+							onChange={e =>
+								dispatch({
+									type: 'SET_BILLING_ZIP',
+									payload: e.target.value
+								})
+							}
 						/>
 						<Label htmlFor="zip">Zip Code</Label>
 					</div>
 				</ExtendField>
 				<Field>
-					<input type="text" id="name" required />
+					<input
+						type="text"
+						id="name"
+						required
+						value={state.user_data.billing_address.name}
+						onChange={e =>
+							dispatch({
+								type: 'SET_BILLING_ADDRESS_NAME',
+								payload: e.target.value
+							})
+						}
+					/>
 					<Label htmlFor="name">Name</Label>
 				</Field>
 				<Field style={{ display: 'flex' }}>
-					<select name="phoneCodes" id="phoneCodes">
+					<select
+						name="phoneCodes"
+						id="phoneCodes"
+						value={state.user_data.billing_address.phone_code}
+						onChange={e =>
+							dispatch({
+								type: 'SET_BILLING_ADDRESS_PHONE_CODE',
+								payload: e.target.value
+							})
+						}>
 						{codes.map(code => (
 							<option key={code} value={code}>
 								{code}
@@ -307,6 +402,13 @@ const Billing = () => {
 							name="phoneNumber"
 							maxLength="10"
 							required
+							value={state.user_data.billing_address.phone_no}
+							onChange={e =>
+								dispatch({
+									type: 'SET_BILLING_ADDRESS_PHONE_NO',
+									payload: e.target.value
+								})
+							}
 							style={{ width: '205px', marginLeft: '16px' }}
 						/>
 						<Label

@@ -2,13 +2,24 @@ import React from 'react'
 import styled from 'styled-components'
 
 import BulbEmoji from '../../assets/svgs/bulb'
+import { Context } from '../../state'
 
 const OnboardSupport = () => {
+	const { state, dispatch } = React.useContext(Context)
 	return (
 		<Wrapper>
 			<h2>Installation and Onboarding Support</h2>
 			<CheckBoxWrapper>
-				<input type="checkbox" id="support" />
+				<input
+					type="checkbox"
+					id="support"
+					checked={state.user_data.onboard}
+					onChange={e =>
+						dispatch({
+							type: 'SET_ONBOARD_SUPPORT'
+						})
+					}
+				/>
 				<label htmlFor="support">
 					I want installation and onboard support
 				</label>

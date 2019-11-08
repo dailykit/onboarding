@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 import BulbEmoji from '../../assets/svgs/bulb'
+import { Context } from '../../state'
 
 const Hosting = () => {
-	const [hosting, setHosting] = React.useState('cloud')
-	const [plan, setPlan] = React.useState(100)
+	const { state, dispatch } = React.useContext(Context)
 	return (
 		<Wrapper>
 			<h2>Hosting</h2>
@@ -15,8 +15,13 @@ const Hosting = () => {
 						type="radio"
 						name="hosting"
 						id="cloud"
-						checked={hosting === 'cloud'}
-						onChange={e => setHosting('cloud')}
+						checked={state.user_data.hosting.type === 'cloud'}
+						onChange={e =>
+							dispatch({
+								type: 'SET_HOSTING_TYPE',
+								payload: 'cloud'
+							})
+						}
 					/>
 					<span htmlFor="cloud">Cloud Hosting</span>
 				</Label>
@@ -25,13 +30,18 @@ const Hosting = () => {
 						type="radio"
 						name="hosting"
 						id="self"
-						checked={hosting === 'self'}
-						onChange={e => setHosting('self')}
+						checked={state.user_data.hosting.type === 'self'}
+						onChange={e =>
+							dispatch({
+								type: 'SET_HOSTING_TYPE',
+								payload: 'self'
+							})
+						}
 					/>
 					<span htmlFor="self">Self Hosting</span>
 				</Label>
 			</RadioWrapper>
-			{hosting === 'cloud' && (
+			{state.user_data.hosting.type === 'cloud' && (
 				<>
 					<h4>
 						Choose your Plan <span>(First month free trial)</span>
@@ -42,8 +52,13 @@ const Hosting = () => {
 								type="radio"
 								name="plan"
 								id="100"
-								checked={plan === 100}
-								onChange={e => setPlan(100)}
+								checked={state.user_data.hosting.plan === 100}
+								onChange={e =>
+									dispatch({
+										type: 'SET_HOSTING_PLAN',
+										payload: 100
+									})
+								}
 							/>
 							<span htmlFor="100">$100/mo</span>
 						</Label>
@@ -52,15 +67,20 @@ const Hosting = () => {
 								type="radio"
 								name="plan"
 								cloud="1000"
-								checked={plan === 1000}
-								onChange={e => setPlan(1000)}
+								checked={state.user_data.hosting.plan === 1000}
+								onChange={e =>
+									dispatch({
+										type: 'SET_HOSTING_PLAN',
+										payload: 1000
+									})
+								}
 							/>
 							<span htmlFor="1000">$1000/yr</span>
 						</Label>
 					</RadioWrapper>
 				</>
 			)}
-			{hosting === 'self' && (
+			{state.user_data.hosting.type === 'self' && (
 				<div>
 					<Tip>
 						<span>

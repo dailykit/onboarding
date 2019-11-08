@@ -1,8 +1,10 @@
 import React from 'react'
 
 import { Wrapper, Field, Label, Form } from './Styles'
+import { Context } from '../../state'
 
 const AboutYourself = () => {
+	const { state, dispatch } = React.useContext(Context)
 	const codes = [
 		'+93',
 		'+355',
@@ -248,15 +250,46 @@ const AboutYourself = () => {
 			<h4>Tell us about yourself</h4>
 			<Form>
 				<Field>
-					<input type="text" id="name" required />
+					<input
+						type="text"
+						id="name"
+						required
+						value={state.user_data.name}
+						onChange={e =>
+							dispatch({
+								type: 'SET_NAME',
+								payload: e.target.value
+							})
+						}
+					/>
 					<Label htmlFor="name">Your Name</Label>
 				</Field>
 				<Field>
-					<input type="text" id="designation" required />
+					<input
+						type="text"
+						id="designation"
+						required
+						value={state.user_data.designation}
+						onChange={e =>
+							dispatch({
+								type: 'SET_DESIGNATION',
+								payload: e.target.value
+							})
+						}
+					/>
 					<Label htmlFor="designation">Your Designation</Label>
 				</Field>
 				<Field style={{ display: 'flex' }}>
-					<select name="phoneCodes" id="phoneCodes">
+					<select
+						name="phoneCodes"
+						id="phoneCodes"
+						value={state.user_data.phone_code}
+						onChange={e =>
+							dispatch({
+								type: 'SET_PHONE_CODE',
+								payload: e.target.value
+							})
+						}>
 						{codes.map(code => (
 							<option key={code} value={code}>
 								{code}
@@ -270,6 +303,13 @@ const AboutYourself = () => {
 							name="phoneNumber"
 							maxLength="10"
 							required
+							value={state.user_data.phone}
+							onChange={e =>
+								dispatch({
+									type: 'SET_PHONE',
+									payload: e.target.value
+								})
+							}
 							style={{ width: '205px', marginLeft: '16px' }}
 						/>
 						<Label

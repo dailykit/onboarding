@@ -29,8 +29,28 @@ const GlobalStyle = createGlobalStyle`
 
 const App = () => {
 	const [state, dispatch] = React.useReducer(reducers, initialState)
+	const StepToRender = () => {
+		switch (state.step) {
+			case 0:
+				return <RegisterEmail />
+			case 1:
+				return <AboutCompany />
+			case 2:
+				return <AboutYourself />
+			case 3:
+				return <Hosting />
+			case 4:
+				return <OnboardSupport />
+			case 5:
+				return <CustomSupport />
+			case 6:
+				return <Billing />
+			default:
+				return <RegisterEmail />
+		}
+	}
 	return (
-		<Context.Provider value={{ state, dispatch }}>
+		<>
 			<GlobalStyle />
 			<Router>
 				<Switch>
@@ -38,62 +58,15 @@ const App = () => {
 					<Route
 						exact
 						path="/register"
-						render={() => {
-							switch (state.step) {
-								case 0:
-									return (
-										<Layout>
-											<RegisterEmail />
-										</Layout>
-									)
-								case 1:
-									return (
-										<Layout>
-											<AboutCompany />
-										</Layout>
-									)
-								case 2:
-									return (
-										<Layout>
-											<AboutYourself />
-										</Layout>
-									)
-								case 3:
-									return (
-										<Layout>
-											<Hosting />
-										</Layout>
-									)
-								case 4:
-									return (
-										<Layout>
-											<OnboardSupport />
-										</Layout>
-									)
-								case 5:
-									return (
-										<Layout>
-											<CustomSupport />
-										</Layout>
-									)
-								case 6:
-									return (
-										<Layout>
-											<Billing />
-										</Layout>
-									)
-								default:
-									return (
-										<Layout>
-											<RegisterEmail />
-										</Layout>
-									)
-							}
-						}}
+						render={() => (
+							<Context.Provider value={{ state, dispatch }}>
+								<Layout>{StepToRender()}</Layout>
+							</Context.Provider>
+						)}
 					/>
 				</Switch>
 			</Router>
-		</Context.Provider>
+		</>
 	)
 }
 

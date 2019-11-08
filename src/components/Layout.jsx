@@ -7,7 +7,23 @@ import LogoMark from '../assets/images/logomark.png'
 
 const Layout = ({ children }) => {
 	const { state, dispatch } = React.useContext(Context)
-	const nextPage = () => dispatch({ type: 'NEXT_PAGE' })
+	const [isValid, setIsValid] = React.useState(true)
+
+	// React.useEffect(() => {
+	// 	const { email, password, company, employees_count } = state.user_data
+	// 	if (email && password) {
+	// 		setIsValid(true)
+	// 	}
+	// 	if (company && employees_count > 0) {
+	// 		setIsValid(true)
+	// 	}
+	// }, [state.user_data])
+
+	const nextPage = () => {
+		dispatch({ type: 'NEXT_PAGE' })
+		// setIsValid(false)
+	}
+
 	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
 
 	const evalHeightFirst = step => {
@@ -40,7 +56,9 @@ const Layout = ({ children }) => {
 				</span>
 				<h1>Basic Information</h1>
 			</Header>
-			<Main>{children}</Main>
+			<Context.Provider value={{ state, dispatch }}>
+				<Main setIsValid={setIsValid}>{children}</Main>
+			</Context.Provider>
 			<Aside>
 				<Stage height={evalHeightFirst(state.step)}>
 					Basic Information
@@ -93,7 +111,14 @@ const Layout = ({ children }) => {
 			<Footer>
 				<button onClick={() => prevPage()}>Back</button>
 				{state.step < 6 && (
-					<button onClick={() => nextPage()}>Next</button>
+					<button
+						onClick={() => nextPage()}
+						disabled={!isValid}
+						style={{
+							background: `${isValid ? '#04a777' : '#e1e1e1'}`
+						}}>
+						Next
+					</button>
 				)}
 				{state.step === 6 && (
 					<button onClick={() => submit()}>Checkout</button>
