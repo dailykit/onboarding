@@ -11,6 +11,8 @@ import AboutYourself from './pages/basicInfo/AboutYourself'
 
 import Hosting from './pages/setupAccount/Hosting'
 
+import Billing from './pages/setupAccount/Billing'
+
 import { Context, state as initialState, reducers } from './state/index'
 import OnboardSupport from './pages/setupAccount/OnboardSupport'
 import CustomSupport from './pages/setupAccount/CustomSupport'
@@ -72,6 +74,12 @@ const App = () => {
 									return (
 										<Layout>
 											<CustomSupport />
+										</Layout>
+									)
+								case 6:
+									return (
+										<Layout>
+											<Billing />
 										</Layout>
 									)
 								default:
