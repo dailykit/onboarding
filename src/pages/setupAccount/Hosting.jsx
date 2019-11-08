@@ -5,6 +5,7 @@ import BulbEmoji from '../../assets/svgs/bulb'
 
 const Hosting = () => {
 	const [hosting, setHosting] = React.useState('cloud')
+	const [plan, setPlan] = React.useState(100)
 	return (
 		<Wrapper>
 			<h2>Hosting</h2>
@@ -37,11 +38,23 @@ const Hosting = () => {
 					</h4>
 					<RadioWrapper variant="rectangle">
 						<Label variant="rectangle">
-							<input type="radio" name="plan" id="100" checked />
+							<input
+								type="radio"
+								name="plan"
+								id="100"
+								checked={plan === 100}
+								onChange={e => setPlan(100)}
+							/>
 							<span htmlFor="100">$100/mo</span>
 						</Label>
 						<Label variant="rectangle">
-							<input type="radio" name="plan" cloud="1000" />
+							<input
+								type="radio"
+								name="plan"
+								cloud="1000"
+								checked={plan === 1000}
+								onChange={e => setPlan(1000)}
+							/>
 							<span htmlFor="1000">$1000/yr</span>
 						</Label>
 					</RadioWrapper>
