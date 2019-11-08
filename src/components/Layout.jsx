@@ -15,19 +15,23 @@ const Layout = ({ children }) => {
 			return 26
 		} else if (step === 1) {
 			return 52
-		} else if (step === 2) {
+		} else if (step >= 2) {
 			return 77
 		}
 	}
 	const evalHeightSecond = step => {
 		if (step === 3) {
-			return 26
+			return 22
 		} else if (step === 4) {
-			return 52
+			return 41
 		} else if (step === 5) {
-			return 77
+			return 62
+		} else if (step >= 6) {
+			return 83
 		}
 	}
+
+	const submit = () => console.log('')
 	return (
 		<Step>
 			<Header>
@@ -41,18 +45,18 @@ const Layout = ({ children }) => {
 				<Stage height={evalHeightFirst(state.step)}>
 					Basic Information
 					<li
-						className={`${[0, 1, 2, 3, 4, 5].includes(
+						className={`${[0, 1, 2, 3, 4, 5, 6].includes(
 							state.step
 						) === true && 'active'}`}>
 						Register with your work email
 					</li>
 					<li
-						className={`${[1, 2, 3, 4, 5].includes(state.step) &&
+						className={`${[1, 2, 3, 4, 5, 6].includes(state.step) &&
 							'active'}`}>
 						Tell us about your company
 					</li>
 					<li
-						className={`${[2, 3, 4, 5].includes(state.step) &&
+						className={`${[2, 3, 4, 5, 6].includes(state.step) &&
 							'active'}`}>
 						Tell us about yourself
 					</li>
@@ -62,19 +66,25 @@ const Layout = ({ children }) => {
 					{state.step > 2 && (
 						<>
 							<li
-								className={`${[3, 4, 5].includes(state.step) ===
-									true && 'active'}`}>
+								className={`${[3, 4, 5, 6].includes(
+									state.step
+								) === true && 'active'}`}>
 								Hosting
 							</li>
 							<li
-								className={`${[4, 5].includes(state.step) ===
+								className={`${[4, 5, 6].includes(state.step) ===
 									true && 'active'}`}>
 								Onboarding Support
 							</li>
 							<li
-								className={`${[5].includes(state.step) ===
+								className={`${[5, 6].includes(state.step) ===
 									true && 'active'}`}>
 								Custom Support
+							</li>
+							<li
+								className={`${[6].includes(state.step) ===
+									true && 'active'}`}>
+								Billing Information
 							</li>
 						</>
 					)}
@@ -82,7 +92,12 @@ const Layout = ({ children }) => {
 			</Aside>
 			<Footer>
 				<button onClick={() => prevPage()}>Back</button>
-				<button onClick={() => nextPage()}>Next</button>
+				{state.step < 6 && (
+					<button onClick={() => nextPage()}>Next</button>
+				)}
+				{state.step === 6 && (
+					<button onClick={() => submit()}>Checkout</button>
+				)}
 			</Footer>
 		</Step>
 	)
@@ -158,7 +173,8 @@ const Stage = styled.ul`
 		left: -42px;
 		width: 18px;
 		height: 18px;
-		border: 2px solid #e1e1e1;
+		border: ${props =>
+			props.height > 0 ? '2px solid #04a777' : '2px solid #e1e1e1'};
 		border-radius: 50%;
 		background: #fafafa;
 	}
