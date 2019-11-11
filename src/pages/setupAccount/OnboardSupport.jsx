@@ -1,67 +1,90 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { Footer, Main, Wrapper } from '../basicInfo/Styles'
+
 import BulbEmoji from '../../assets/svgs/bulb'
 import { Context } from '../../state'
 
 const OnboardSupport = () => {
 	const { state, dispatch } = React.useContext(Context)
+	const [onboard, setOnboard] = React.useState(state.user_data.onboard)
+
+	const nextPage = () => {
+		dispatch({
+			type: 'SET_FORM5',
+			payload: {
+				onboard
+			}
+		})
+		dispatch({ type: 'NEXT_PAGE' })
+	}
+	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
+
 	return (
 		<Wrapper>
-			<h2>Installation and Onboarding Support</h2>
-			<CheckBoxWrapper>
-				<input
-					type="checkbox"
-					id="support"
-					checked={state.user_data.onboard}
-					onChange={e =>
-						dispatch({
-							type: 'SET_ONBOARD_SUPPORT'
-						})
-					}
-				/>
-				<label htmlFor="support">
-					I want installation and onboard support
-				</label>
-			</CheckBoxWrapper>
-			<Info>
+			<ExtMain>
 				<div>
-					<Tip>
-						<span>
-							<BulbEmoji />
-						</span>
-						<p>
-							Dailykit is here to help! With simplified
-							intallation and onboarding support, we will
-						</p>
-					</Tip>
-					<ul>
-						<li>Setup your software</li>
-						<li>Import your data</li>
-						<li>Train your staff</li>
-						<li>Provide 3 months of 24x7 world class support</li>
-					</ul>
+					<h2>Installation and Onboarding Support</h2>
+					<CheckBoxWrapper>
+						<input
+							type="checkbox"
+							id="support"
+							checked={onboard}
+							onChange={e => setOnboard(!onboard)}
+						/>
+						<label htmlFor="support">
+							I want installation and onboard support
+						</label>
+					</CheckBoxWrapper>
+					<Info>
+						<div>
+							<Tip>
+								<span>
+									<BulbEmoji />
+								</span>
+								<p>
+									Dailykit is here to help! With simplified
+									intallation and onboarding support, we will
+								</p>
+							</Tip>
+							<ul>
+								<li>Setup your software</li>
+								<li>Import your data</li>
+								<li>Train your staff</li>
+								<li>
+									Provide 3 months of 24x7 world class support
+								</li>
+							</ul>
+						</div>
+						<Card>
+							<h4>We have a plan for you</h4>
+							<span id="strike">$3000</span>
+							<span id="discount">70% off (limited)</span>
+							<span id="price">$1000</span>
+						</Card>
+					</Info>
 				</div>
-				<Card>
-					<h4>We have a plan for you</h4>
-					<span id="strike">$3000</span>
-					<span id="discount">70% off (limited)</span>
-					<span id="price">$1000</span>
-				</Card>
-			</Info>
+			</ExtMain>
+			<Footer>
+				<button onClick={() => prevPage()}>Back</button>
+				<button
+					onClick={() => nextPage()}
+					style={{
+						background: '#04a777'
+					}}>
+					Next
+				</button>
+			</Footer>
 		</Wrapper>
 	)
 }
 
 export default OnboardSupport
 
-const Wrapper = styled.div`
-	width: 640px;
-	h2 {
-		font-size: 24px;
-		font-weight: 400;
-		color: #555b6e;
-		margin-bottom: 24px;
+const ExtMain = styled(Main)`
+	> div {
+		width: 640px;
 	}
 `
 
@@ -112,6 +135,7 @@ const Card = styled.div`
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	h4 {
 		font-size: 14px;
+		margin: 0;
 		font-weight: 400;
 		color: #888d9d;
 		padding-bottom: 12px;

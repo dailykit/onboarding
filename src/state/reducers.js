@@ -1,28 +1,12 @@
 export const NEXT_PAGE = 'NEXT_PAGE'
 export const PREV_PAGE = 'PREV_PAGE'
-export const SET_EMAIL = 'SET_EMAIL'
-export const SET_PASSWORD = 'SET_PASSWORD'
-export const SET_COMPANY = 'SET_COMPANY'
-export const SET_EMPLOYEES_COUNT = 'SET_EMPLOYEES_COUNT'
-export const SET_NAME = 'SET_NAME'
-export const SET_DESIGNATION = 'SET_DESIGNATION'
-export const SET_PHONE_CODE = 'SET_PHONE_CODE'
-export const SET_PHONE = 'SET_PHONE'
-export const SET_HOSTING_TYPE = 'SET_HOSTING_TYPE'
-export const SET_HOSTING_PLAN = 'SET_HOSTING_PLAN'
-export const SET_ONBOARD_SUPPORT = 'SET_ONBOARD_SUPPORT'
-export const SET_CUSTOMIZE_REQUEST = 'SET_CUSTOMIZE_REQUEST'
-export const SET_CUSTOM_SUPPORT_PLAN = 'SET_CUSTOM_SUPPORT_PLAN'
-export const SET_BILLING_CARD = 'SET_BILLING_CARD'
-export const SET_BILLING_EXPIRY = 'SET_BILLING_EXPIRY'
-export const SET_BILLING_CVV = 'SET_BILLING_CVV'
-export const SET_BILLING_CARD_NAME = 'SET_BILLING_CARD_NAME'
-export const SET_BILLING_ADDRESS = 'SET_BILLING_ADDRESS'
-export const SET_BILLING_CITY = 'SET_BILLING_CITY'
-export const SET_BILLING_ZIP = 'SET_BILLING_ZIP'
-export const SET_BILLING_ADDRESS_NAME = 'SET_BILLING_ADDRESS_NAME'
-export const SET_BILLING_ADDRESS_PHONE_CODE = 'SET_BILLING_ADDRESS_PHONE_CODE'
-export const SET_BILLING_ADDRESS_PHONE_NO = 'SET_BILLING_ADDRESS_PHONE_NO'
+const SET_FORM1 = 'SET_FORM1'
+const SET_FORM2 = 'SET_FORM2'
+const SET_FORM3 = 'SET_FORM3'
+const SET_FORM4 = 'SET_FORM4'
+const SET_FORM5 = 'SET_FORM5'
+const SET_FORM6 = 'SET_FORM6'
+const SET_FORM7 = 'SET_FORM7'
 
 const reducers = (state, action) => {
 	switch (action.type) {
@@ -36,230 +20,79 @@ const reducers = (state, action) => {
 				...state,
 				step: state.step === 0 ? 0 : state.step - 1
 			}
+		case SET_FORM1:
+			return {
+				...state,
+				user_data: {
+					...state.user_data,
+					...action.payload
+				}
+			}
 
-		case SET_EMAIL:
+		case SET_FORM2:
 			return {
 				...state,
 				user_data: {
 					...state.user_data,
-					email: action.payload
+					...action.payload
 				}
 			}
-		case SET_PASSWORD:
+
+		case SET_FORM3:
 			return {
 				...state,
 				user_data: {
 					...state.user_data,
-					password: action.payload
+					...action.payload
 				}
 			}
-		case SET_COMPANY:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					company: action.payload
-				}
-			}
-		case SET_EMPLOYEES_COUNT:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					employees_count: action.payload
-				}
-			}
-		case SET_NAME:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					name: action.payload
-				}
-			}
-		case SET_DESIGNATION:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					designation: action.payload
-				}
-			}
-		case SET_PHONE_CODE:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					phone_code: action.payload
-				}
-			}
-		case SET_PHONE:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					phone: action.payload
-				}
-			}
-		case SET_HOSTING_TYPE:
+
+		case SET_FORM4:
 			return {
 				...state,
 				user_data: {
 					...state.user_data,
 					hosting: {
-						...state.user_data.hosting,
-						type: action.payload
+						...action.payload
 					}
 				}
 			}
-		case SET_HOSTING_PLAN:
+		case SET_FORM5:
 			return {
 				...state,
 				user_data: {
 					...state.user_data,
-					hosting: {
-						...state.user_data.hosting,
-						plan: action.payload
-					}
+					...action.payload
 				}
 			}
-		case SET_ONBOARD_SUPPORT:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					onboard: !state.user_data.onboard
-				}
-			}
-		case SET_CUSTOMIZE_REQUEST:
+		case SET_FORM6:
 			return {
 				...state,
 				user_data: {
 					...state.user_data,
 					custom: {
-						...state.user_data.custom,
-						required: !state.user_data.custom.required
+						...action.payload
 					}
 				}
 			}
-		case SET_CUSTOM_SUPPORT_PLAN:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					custom: {
-						...state.user_data.custom,
-						plan: action.payload
-					}
-				}
-			}
-		case SET_BILLING_CARD:
+		case SET_FORM7:
 			return {
 				...state,
 				user_data: {
 					...state.user_data,
 					billing_info: {
-						...state.user_data.billing_info,
-						card_no: action.payload
-					}
-				}
-			}
-		case SET_BILLING_EXPIRY:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					billing_info: {
-						...state.user_data.billing_info,
-						expiry: action.payload
-					}
-				}
-			}
-		case SET_BILLING_CVV:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					billing_info: {
-						...state.user_data.billing_info,
-						cvv: action.payload
-					}
-				}
-			}
-		case SET_BILLING_CARD_NAME:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					billing_info: {
-						...state.user_data.billing_info,
-						name: action.payload
-					}
-				}
-			}
-		case SET_BILLING_ADDRESS:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
+						cardNo: action.payload.cardNo,
+						expiry: action.payload.expiry,
+						cvv: action.payload.cvv,
+						cardName: action.payload.cardName
+					},
 					billing_address: {
-						...state.user_data.billing_address,
-						address: action.payload
-					}
-				}
-			}
-		case SET_BILLING_CITY:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					billing_address: {
-						...state.user_data.billing_address,
-						city: action.payload
-					}
-				}
-			}
-		case SET_BILLING_ZIP:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					billing_address: {
-						...state.user_data.billing_address,
-						zip: action.payload
-					}
-				}
-			}
-		case SET_BILLING_ADDRESS_NAME:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					billing_address: {
-						...state.user_data.billing_address,
-						name: action.payload
-					}
-				}
-			}
-		case SET_BILLING_ADDRESS_PHONE_CODE:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					billing_address: {
-						...state.user_data.billing_address,
-						phone_code: action.payload
-					}
-				}
-			}
-		case SET_BILLING_ADDRESS_PHONE_NO:
-			return {
-				...state,
-				user_data: {
-					...state.user_data,
-					billing_address: {
-						...state.user_data.billing_address,
-						phone_no: action.payload
+						address: action.payload.address,
+						city: action.payload.city,
+						zip: action.payload.zip,
+						name: action.payload.name,
+						phoneCode: action.payload.phoneCode,
+						phoneNo: action.payload.cardNo
 					}
 				}
 			}

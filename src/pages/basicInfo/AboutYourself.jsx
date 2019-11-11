@@ -1,10 +1,31 @@
 import React from 'react'
 
-import { Wrapper, Field, Label, Form } from './Styles'
+import { Footer, Main, Wrapper, Field, Label, Form } from './Styles'
 import { Context } from '../../state'
 
 const AboutYourself = () => {
 	const { state, dispatch } = React.useContext(Context)
+	const [name, setName] = React.useState(state.user_data.name)
+	const [designation, setDesignation] = React.useState(
+		state.user_data.designation
+	)
+	const [phoneCode, setPhoneCode] = React.useState(state.user_data.phoneCode)
+	const [phoneNo, setPhoneNo] = React.useState(state.user_data.phoneNo)
+
+	const nextPage = () => {
+		dispatch({
+			type: 'SET_FORM3',
+			payload: {
+				name,
+				designation,
+				phoneCode,
+				phoneNo
+			}
+		})
+		dispatch({ type: 'NEXT_PAGE' })
+	}
+	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
+
 	const codes = [
 		'+93',
 		'+355',
@@ -247,79 +268,78 @@ const AboutYourself = () => {
 	]
 	return (
 		<Wrapper>
-			<h4>Tell us about yourself</h4>
-			<Form>
-				<Field>
-					<input
-						type="text"
-						id="name"
-						required
-						value={state.user_data.name}
-						onChange={e =>
-							dispatch({
-								type: 'SET_NAME',
-								payload: e.target.value
-							})
-						}
-					/>
-					<Label htmlFor="name">Your Name</Label>
-				</Field>
-				<Field>
-					<input
-						type="text"
-						id="designation"
-						required
-						value={state.user_data.designation}
-						onChange={e =>
-							dispatch({
-								type: 'SET_DESIGNATION',
-								payload: e.target.value
-							})
-						}
-					/>
-					<Label htmlFor="designation">Your Designation</Label>
-				</Field>
-				<Field style={{ display: 'flex' }}>
-					<select
-						name="phoneCodes"
-						id="phoneCodes"
-						value={state.user_data.phone_code}
-						onChange={e =>
-							dispatch({
-								type: 'SET_PHONE_CODE',
-								payload: e.target.value
-							})
-						}>
-						{codes.map(code => (
-							<option key={code} value={code}>
-								{code}
-							</option>
-						))}
-					</select>
-					<div>
-						<input
-							type="tel"
-							id="phoneNumber"
-							name="phoneNumber"
-							maxLength="10"
-							required
-							value={state.user_data.phone}
-							onChange={e =>
-								dispatch({
-									type: 'SET_PHONE',
-									payload: e.target.value
-								})
-							}
-							style={{ width: '205px', marginLeft: '16px' }}
-						/>
-						<Label
-							htmlFor="phoneNumber"
-							style={{ marginLeft: '16px' }}>
-							Your Phone Number
-						</Label>
-					</div>
-				</Field>
-			</Form>
+			<Main>
+				<div>
+					<h4>Tell us about yourself</h4>
+					<Form>
+						<Field>
+							<input
+								type="text"
+								id="name"
+								required
+								value={name}
+								onChange={e => setName(e.target.value)}
+							/>
+							<Label htmlFor="name">Your Name</Label>
+						</Field>
+						<Field>
+							<input
+								type="text"
+								id="designation"
+								required
+								value={designation}
+								onChange={e => setDesignation(e.target.value)}
+							/>
+							<Label htmlFor="designation">
+								Your Designation
+							</Label>
+						</Field>
+						<Field style={{ display: 'flex' }}>
+							<select
+								name="phoneCodes"
+								id="phoneCodes"
+								value={phoneCode}
+								onChange={e => setPhoneCode(e.target.value)}>
+								{codes.map(code => (
+									<option key={code} value={code}>
+										{code}
+									</option>
+								))}
+							</select>
+							<div>
+								<input
+									type="tel"
+									id="phoneNumber"
+									name="phoneNumber"
+									maxLength="10"
+									required
+									value={phoneNo}
+									onChange={e => setPhoneNo(e.target.value)}
+									style={{
+										width: '205px',
+										marginLeft: '16px'
+									}}
+								/>
+								<Label
+									htmlFor="phoneNumber"
+									style={{ marginLeft: '16px' }}>
+									Your Phone Number
+								</Label>
+							</div>
+						</Field>
+					</Form>
+				</div>
+			</Main>
+			<Footer>
+				<button onClick={() => prevPage()}>Back</button>
+				<button
+					onClick={() => nextPage()}
+					style={{
+						background: '#04a777'
+					}}>
+					Next
+				</button>
+			</Footer>
 		</Wrapper>
 	)
 }

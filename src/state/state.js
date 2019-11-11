@@ -4,14 +4,14 @@ const state = {
 		email: '',
 		password: '',
 		company: '',
-		employees_count: '5',
+		employeesCount: '5',
 		name: '',
 		designation: '',
-		phone: '',
-		phone_code: '+91',
+		phoneNo: '',
+		phoneCode: '+91',
 		hosting: {
 			type: 'cloud',
-			plan: 1000
+			plan: 100
 		},
 		onboard: true,
 		custom: {
@@ -19,18 +19,18 @@ const state = {
 			plan: 135
 		},
 		billing_info: {
-			card_no: '',
+			cardNo: '',
 			expiry: '',
 			cvv: '',
-			name: ''
+			cardName: ''
 		},
 		billing_address: {
 			address: '',
 			city: '',
 			zip: '',
 			name: '',
-			phone_code: '+91',
-			phone_no: ''
+			phoneCode: '+91',
+			phoneNo: ''
 		}
 	}
 }

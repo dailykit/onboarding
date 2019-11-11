@@ -1,130 +1,120 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { Footer, Main, Wrapper } from '../basicInfo/Styles'
+
 import BulbEmoji from '../../assets/svgs/bulb'
 import { Context } from '../../state'
 
 const Hosting = () => {
 	const { state, dispatch } = React.useContext(Context)
+	const [type, setType] = React.useState(state.user_data.hosting.type)
+	const [plan, setPlan] = React.useState(state.user_data.hosting.plan)
+
+	const nextPage = () => {
+		dispatch({
+			type: 'SET_FORM4',
+			payload: {
+				type,
+				plan
+			}
+		})
+		dispatch({ type: 'NEXT_PAGE' })
+	}
+	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
+
 	return (
 		<Wrapper>
-			<h2>Hosting</h2>
-			<RadioWrapper>
-				<Label>
-					<input
-						type="radio"
-						name="hosting"
-						id="cloud"
-						checked={state.user_data.hosting.type === 'cloud'}
-						onChange={e =>
-							dispatch({
-								type: 'SET_HOSTING_TYPE',
-								payload: 'cloud'
-							})
-						}
-					/>
-					<span htmlFor="cloud">Cloud Hosting</span>
-				</Label>
-				<Label>
-					<input
-						type="radio"
-						name="hosting"
-						id="self"
-						checked={state.user_data.hosting.type === 'self'}
-						onChange={e =>
-							dispatch({
-								type: 'SET_HOSTING_TYPE',
-								payload: 'self'
-							})
-						}
-					/>
-					<span htmlFor="self">Self Hosting</span>
-				</Label>
-			</RadioWrapper>
-			{state.user_data.hosting.type === 'cloud' && (
-				<>
-					<h4>
-						Choose your Plan <span>(First month free trial)</span>
-					</h4>
-					<RadioWrapper variant="rectangle">
-						<Label variant="rectangle">
+			<Main>
+				<div>
+					<h2>Hosting</h2>
+					<RadioWrapper>
+						<Label>
 							<input
 								type="radio"
-								name="plan"
-								id="100"
-								checked={state.user_data.hosting.plan === 100}
-								onChange={e =>
-									dispatch({
-										type: 'SET_HOSTING_PLAN',
-										payload: 100
-									})
-								}
+								name="hosting"
+								id="cloud"
+								checked={type === 'cloud'}
+								onChange={e => setType('cloud')}
 							/>
-							<span htmlFor="100">$100/mo</span>
+							<span htmlFor="cloud">Cloud Hosting</span>
 						</Label>
-						<Label variant="rectangle">
+						<Label>
 							<input
 								type="radio"
-								name="plan"
-								cloud="1000"
-								checked={state.user_data.hosting.plan === 1000}
-								onChange={e =>
-									dispatch({
-										type: 'SET_HOSTING_PLAN',
-										payload: 1000
-									})
-								}
+								name="hosting"
+								id="self"
+								checked={type === 'self'}
+								onChange={e => setType('self')}
 							/>
-							<span htmlFor="1000">$1000/yr</span>
+							<span htmlFor="self">Self Hosting</span>
 						</Label>
 					</RadioWrapper>
-				</>
-			)}
-			{state.user_data.hosting.type === 'self' && (
-				<div>
-					<Tip>
-						<span>
-							<BulbEmoji />
-						</span>
-						<p>
-							Open URL:{' '}
-							<a href="https://efdd.wkjdcm.fhdj">
-								https://efdd;.wkjdcm.fhdj
-							</a>{' '}
-							>> Login with your registered email with us >> Click
-							on domain name >> Add your server name [open control
-							panel//copy DNS]
-						</p>
-					</Tip>
+					{type === 'cloud' && (
+						<>
+							<h4>
+								Choose your Plan{' '}
+								<span>(First month free trial)</span>
+							</h4>
+							<RadioWrapper variant="rectangle">
+								<Label variant="rectangle">
+									<input
+										type="radio"
+										name="plan"
+										id="100"
+										checked={plan === 100}
+										onChange={() => setPlan(100)}
+									/>
+									<span htmlFor="100">$100/mo</span>
+								</Label>
+								<Label variant="rectangle">
+									<input
+										type="radio"
+										name="plan"
+										cloud="1000"
+										checked={plan === 1000}
+										onChange={() => setPlan(1000)}
+									/>
+									<span htmlFor="1000">$1000/yr</span>
+								</Label>
+							</RadioWrapper>
+						</>
+					)}
+					{type === 'self' && (
+						<div>
+							<Tip>
+								<span>
+									<BulbEmoji />
+								</span>
+								<p>
+									Open URL:{' '}
+									<a href="https://efdd.wkjdcm.fhdj">
+										https://efdd;.wkjdcm.fhdj
+									</a>{' '}
+									>> Login with your registered email with us
+									>> Click on domain name >> Add your server
+									name [open control panel//copy DNS]
+								</p>
+							</Tip>
+						</div>
+					)}
 				</div>
-			)}
+			</Main>
+			<Footer>
+				<button onClick={() => prevPage()}>Back</button>
+				<button
+					onClick={() => nextPage()}
+					style={{
+						background: '#04a777'
+					}}>
+					Next
+				</button>
+			</Footer>
 		</Wrapper>
 	)
 }
 
 export default Hosting
-
-const Wrapper = styled.div`
-	width: 640px;
-	h2 {
-		font-size: 24px;
-		font-weight: 400;
-		color: #555b6e;
-		margin-bottom: 24px;
-	}
-	h4 {
-		margin-top: 48px;
-		font-size: 16px;
-		font-weight: 500;
-		color: #555b6e;
-		margin-bottom: 24px;
-		span {
-			font-weight: 400;
-			font-size: 14px;
-			color: #888d9d;
-		}
-	}
-`
 
 const RadioWrapper = styled.div(
 	({ variant }) => `

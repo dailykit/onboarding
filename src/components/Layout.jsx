@@ -7,24 +7,6 @@ import LogoMark from '../assets/images/logomark.png'
 
 const Layout = ({ children }) => {
 	const { state, dispatch } = React.useContext(Context)
-	const [isValid, setIsValid] = React.useState(true)
-
-	// React.useEffect(() => {
-	// 	const { email, password, company, employees_count } = state.user_data
-	// 	if (email && password) {
-	// 		setIsValid(true)
-	// 	}
-	// 	if (company && employees_count > 0) {
-	// 		setIsValid(true)
-	// 	}
-	// }, [state.user_data])
-
-	const nextPage = () => {
-		dispatch({ type: 'NEXT_PAGE' })
-		// setIsValid(false)
-	}
-
-	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
 
 	const evalHeightFirst = step => {
 		if (step === 0) {
@@ -47,7 +29,6 @@ const Layout = ({ children }) => {
 		}
 	}
 
-	const submit = () => console.log('')
 	return (
 		<Step>
 			<Header>
@@ -57,7 +38,7 @@ const Layout = ({ children }) => {
 				<h1>Basic Information</h1>
 			</Header>
 			<Context.Provider value={{ state, dispatch }}>
-				<Main setIsValid={setIsValid}>{children}</Main>
+				<Main>{children}</Main>
 			</Context.Provider>
 			<Aside>
 				<Stage height={evalHeightFirst(state.step)}>
@@ -108,22 +89,6 @@ const Layout = ({ children }) => {
 					)}
 				</Stage>
 			</Aside>
-			<Footer>
-				<button onClick={() => prevPage()}>Back</button>
-				{state.step < 6 && (
-					<button
-						onClick={() => nextPage()}
-						disabled={!isValid}
-						style={{
-							background: `${isValid ? '#04a777' : '#e1e1e1'}`
-						}}>
-						Next
-					</button>
-				)}
-				{state.step === 6 && (
-					<button onClick={() => submit()}>Checkout</button>
-				)}
-			</Footer>
 		</Step>
 	)
 }
@@ -136,11 +101,10 @@ const Step = styled.div`
 	padding: 0 100px;
 	display: grid;
 	grid-template-columns: 2fr 1fr 1fr;
-	grid-template-rows: 100px 1fr 100px;
+	grid-template-rows: 100px 1fr;
 	grid-template-areas:
 		'head head head'
-		'main main aside'
-		'footer footer aside';
+		'main main aside';
 `
 
 const Header = styled.header`
@@ -162,12 +126,7 @@ const Header = styled.header`
 	}
 `
 const Main = styled.main`
-	background: #fff;
 	grid-area: main;
-	border: 1px solid #ececec;
-	padding-top: 80px;
-	display: flex;
-	justify-content: center;
 `
 const Aside = styled.aside`
 	grid-area: aside;
@@ -238,23 +197,5 @@ const Stage = styled.ul`
 				background: #04a777;
 			}
 		}
-	}
-`
-
-const Footer = styled.footer`
-	grid-area: footer;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	button {
-		height: 40px;
-		text-transform: uppercase;
-		background: #04a777;
-		border-radius: 48px;
-		padding: 0 16px;
-		border: none;
-		font-size: 14px;
-		color: #fff;
-		cursor: pointer;
 	}
 `

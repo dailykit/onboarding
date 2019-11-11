@@ -1,11 +1,54 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Form, Field, Label } from '../basicInfo/Styles'
+import { Wrapper, Footer, Main, Form, Field, Label } from '../basicInfo/Styles'
 import { Context } from '../../state'
 
 const Billing = () => {
 	const { state, dispatch } = React.useContext(Context)
+	const [cardNo, setCardNo] = React.useState(
+		state.user_data.billing_info.cardNo
+	)
+	const [expiry, setExpiry] = React.useState(
+		state.user_data.billing_info.expiry
+	)
+	const [cvv, setCvv] = React.useState(state.user_data.billing_info.cvv)
+	const [cardName, setCardName] = React.useState(
+		state.user_data.billing_info.name
+	)
+
+	const [address, setAddress] = React.useState(
+		state.user_data.billing_address.address
+	)
+	const [city, setCity] = React.useState(state.user_data.billing_address.city)
+	const [zip, setZip] = React.useState(state.user_data.billing_address.zip)
+	const [name, setName] = React.useState(state.user_data.billing_address.name)
+	const [phoneCode, setPhoneCode] = React.useState(
+		state.user_data.billing_address.phoneCode
+	)
+	const [phoneNo, setPhoneNo] = React.useState(
+		state.user_data.billing_address.phoneNo
+	)
+
+	const checkout = () => {
+		dispatch({
+			type: 'SET_FORM7',
+			payload: {
+				cardNo,
+				expiry,
+				cvv,
+				cardName,
+				address,
+				city,
+				zip,
+				name,
+				phoneCode,
+				phoneNo
+			}
+		})
+	}
+	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
+
 	const codes = [
 		'+93',
 		'+355',
@@ -248,190 +291,173 @@ const Billing = () => {
 	]
 	return (
 		<Wrapper>
-			<h2>Billing Information</h2>
-			<Form>
-				<Field>
-					<input
-						type="text"
-						id="card"
-						required
-						value={state.user_data.billing_info.card_no}
-						onChange={e =>
-							dispatch({
-								type: 'SET_BILLING_CARD',
-								payload: e.target.value
-							})
-						}
-					/>
-					<Label htmlFor="card">Card No.</Label>
-				</Field>
-				<ExtendField>
-					<div>
-						<input
-							type="text"
-							id="expiry"
-							required
-							value={state.user_data.billing_info.expiry}
-							onChange={e =>
-								dispatch({
-									type: 'SET_BILLING_EXPIRY',
-									payload: e.target.value
-								})
-							}
-						/>
-						<Label htmlFor="expiry">Expiry Date(dd/mm/yyyy)</Label>
-					</div>
-					<div>
-						<input
-							type="text"
-							id="cvv"
-							required
-							value={state.user_data.billing_info.cvv}
-							onChange={e =>
-								dispatch({
-									type: 'SET_BILLING_CVV',
-									payload: e.target.value
-								})
-							}
-						/>
-						<Label htmlFor="cvv">CVV</Label>
-					</div>
-				</ExtendField>
-				<Field>
-					<input
-						type="text"
-						id="cardName"
-						required
-						value={state.user_data.billing_info.name}
-						onChange={e =>
-							dispatch({
-								type: 'SET_BILLING_CARD_NAME',
-								payload: e.target.value
-							})
-						}
-					/>
-					<Label htmlFor="cardName">Name on Card</Label>
-				</Field>
-			</Form>
-			<h2>Billing Address</h2>
-			<Form>
-				<Field>
-					<input
-						type="text"
-						id="address"
-						required
-						value={state.user_data.billing_address.address}
-						onChange={e =>
-							dispatch({
-								type: 'SET_BILLING_ADDRESS',
-								payload: e.target.value
-							})
-						}
-					/>
-					<Label htmlFor="address">Enter your Address</Label>
-				</Field>
-				<ExtendField>
-					<div>
-						<input
-							type="text"
-							id="city"
-							required
-							value={state.user_data.billing_address.city}
-							onChange={e =>
-								dispatch({
-									type: 'SET_BILLING_CITY',
-									payload: e.target.value
-								})
-							}
-						/>
-						<Label htmlFor="city">City</Label>
-					</div>
-					<div>
-						<input
-							type="number"
-							id="zip"
-							max-length="10"
-							required
-							value={state.user_data.billing_address.zip}
-							onChange={e =>
-								dispatch({
-									type: 'SET_BILLING_ZIP',
-									payload: e.target.value
-								})
-							}
-						/>
-						<Label htmlFor="zip">Zip Code</Label>
-					</div>
-				</ExtendField>
-				<Field>
-					<input
-						type="text"
-						id="name"
-						required
-						value={state.user_data.billing_address.name}
-						onChange={e =>
-							dispatch({
-								type: 'SET_BILLING_ADDRESS_NAME',
-								payload: e.target.value
-							})
-						}
-					/>
-					<Label htmlFor="name">Name</Label>
-				</Field>
-				<Field style={{ display: 'flex' }}>
-					<select
-						name="phoneCodes"
-						id="phoneCodes"
-						value={state.user_data.billing_address.phone_code}
-						onChange={e =>
-							dispatch({
-								type: 'SET_BILLING_ADDRESS_PHONE_CODE',
-								payload: e.target.value
-							})
-						}>
-						{codes.map(code => (
-							<option key={code} value={code}>
-								{code}
-							</option>
-						))}
-					</select>
-					<div>
-						<input
-							type="tel"
-							id="phoneNumber"
-							name="phoneNumber"
-							maxLength="10"
-							required
-							value={state.user_data.billing_address.phone_no}
-							onChange={e =>
-								dispatch({
-									type: 'SET_BILLING_ADDRESS_PHONE_NO',
-									payload: e.target.value
-								})
-							}
-							style={{ width: '205px', marginLeft: '16px' }}
-						/>
-						<Label
-							htmlFor="phoneNumber"
-							style={{ marginLeft: '16px' }}>
-							Your Phone Number
-						</Label>
-					</div>
-				</Field>
-			</Form>
+			<ExtMain>
+				<div>
+					<h2>Billing Information</h2>
+					<Form>
+						<Field>
+							<input
+								type="text"
+								id="card"
+								required
+								value={cardNo}
+								onChange={e => setCardNo(e.target.value)}
+							/>
+							<Label htmlFor="card">Card No.</Label>
+						</Field>
+						<ExtendField>
+							<div>
+								<input
+									type="text"
+									id="expiry"
+									required
+									value={expiry}
+									onChange={e => setExpiry(e.target.value)}
+								/>
+								<Label htmlFor="expiry">
+									Expiry Date(dd/mm/yyyy)
+								</Label>
+							</div>
+							<div>
+								<input
+									type="text"
+									id="cvv"
+									required
+									value={cvv}
+									onChange={e => setCvv(e.target.value)}
+								/>
+								<Label htmlFor="cvv">CVV</Label>
+							</div>
+						</ExtendField>
+						<Field>
+							<input
+								type="text"
+								id="cardName"
+								required
+								value={cardName}
+								onChange={e => setCardName(e.target.value)}
+							/>
+							<Label htmlFor="cardName">Name on Card</Label>
+						</Field>
+					</Form>
+					<h2>Billing Address</h2>
+					<Form>
+						<Field>
+							<input
+								type="text"
+								id="address"
+								required
+								value={address}
+								onChange={e => setAddress(e.target.value)}
+							/>
+							<Label htmlFor="address">Enter your Address</Label>
+						</Field>
+						<ExtendField>
+							<div>
+								<input
+									type="text"
+									id="city"
+									required
+									value={city}
+									onChange={e => setCity(e.target.value)}
+								/>
+								<Label htmlFor="city">City</Label>
+							</div>
+							<div>
+								<input
+									type="number"
+									id="zip"
+									max-length="10"
+									required
+									value={zip}
+									onChange={e => setZip(e.target.value)}
+								/>
+								<Label htmlFor="zip">Zip Code</Label>
+							</div>
+						</ExtendField>
+						<Field>
+							<input
+								type="text"
+								id="name"
+								required
+								value={name}
+								onChange={e => setName(e.target.value)}
+							/>
+							<Label htmlFor="name">Name</Label>
+						</Field>
+						<Field style={{ display: 'flex' }}>
+							<select
+								name="phoneCodes"
+								id="phoneCodes"
+								value={phoneCode}
+								onChange={e => setPhoneCode(e.target.value)}>
+								{codes.map(code => (
+									<option key={code} value={code}>
+										{code}
+									</option>
+								))}
+							</select>
+							<div>
+								<input
+									type="tel"
+									id="phoneNumber"
+									name="phoneNumber"
+									maxLength="10"
+									required
+									value={phoneNo}
+									onChange={e => setPhoneNo(e.target.value)}
+									style={{
+										width: '205px',
+										marginLeft: '16px'
+									}}
+								/>
+								<Label
+									htmlFor="phoneNumber"
+									style={{ marginLeft: '16px' }}>
+									Your Phone Number
+								</Label>
+							</div>
+						</Field>
+					</Form>
+				</div>
+			</ExtMain>
+			<Footer>
+				<button onClick={() => prevPage()}>Back</button>
+				<button
+					onClick={() => checkout()}
+					style={{
+						background: '#04a777'
+					}}>
+					Checkout
+				</button>
+			</Footer>
 		</Wrapper>
 	)
 }
 
 export default Billing
 
-const Wrapper = styled.div`
-	width: 640px;
+const ExtMain = styled(Main)`
+	> div {
+		width: 640px;
+	}
 	h2 {
 		font-size: 24px;
 		font-weight: 400;
 		color: #555b6e;
 		margin-bottom: 24px;
+	}
+	h4 {
+		margin-top: 48px;
+		font-size: 16px;
+		font-weight: 500;
+		color: #555b6e;
+		margin-bottom: 24px;
+		span {
+			font-weight: 400;
+			font-size: 14px;
+			color: #888d9d;
+		}
 	}
 `
 
