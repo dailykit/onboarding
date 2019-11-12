@@ -1,21 +1,36 @@
 import React from 'react'
 
-import { Footer, Main, Wrapper, Field, Label, Form } from './Styles'
+import { Footer, Main, Wrapper, Field, Label, Form, Error } from './Styles'
 import { Context } from '../../state'
+
+import validate from '../../validators/validate'
 
 const AboutCompany = () => {
 	const { state, dispatch } = React.useContext(Context)
-	const [company, setCompany] = React.useState(state.user_data.company)
-	const [employeesCount, setEmployeesCount] = React.useState(
-		state.user_data.employeesCount
-	)
+	const [form, setForm] = React.useState({
+		company: state.user_data.company,
+		employeesCount: state.user_data.employeesCount
+	})
+
+	const [errors, setErrors] = React.useState({
+		company: '',
+		employeesCount: ''
+	})
+
+	const handleChange = e => {
+		const { name, value } = e.target
+		setForm(form => ({
+			...form,
+			[name]: value
+		}))
+		validate(value, name, 'form2', setErrors)
+	}
 
 	const nextPage = () => {
 		dispatch({
 			type: 'SET_FORM2',
 			payload: {
-				company,
-				employeesCount
+				...form
 			}
 		})
 		dispatch({ type: 'NEXT_PAGE' })
@@ -31,21 +46,21 @@ const AboutCompany = () => {
 						<Field>
 							<input
 								type="text"
-								id="companyName"
+								id="company"
+								name="company"
 								required
-								value={company}
-								onChange={e => setCompany(e.target.value)}
+								value={form.company}
+								onChange={e => handleChange(e)}
 							/>
-							<Label htmlFor="companyName">Company Name</Label>
+							<Label htmlFor="company">Company Name</Label>
 						</Field>
+						{errors.company && <Error>{errors.company}</Error>}
 						<Field>
 							<select
 								name="employeesCount"
 								id="employeesCount"
-								value={employeesCount}
-								onChange={e =>
-									setEmployeesCount(e.target.value)
-								}>
+								value={form.employeesCount}
+								onChange={e => handleChange(e)}>
 								<option value="5">5-10</option>
 								<option value="10">10-20</option>
 								<option value="20">20-50</option>
