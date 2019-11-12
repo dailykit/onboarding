@@ -1,21 +1,17 @@
 import React from 'react'
-import styled from 'styled-components'
 
-import {
-	Wrapper,
-	Footer,
-	Main,
-	Form,
-	Field,
-	Label,
-	Error
-} from '../basicInfo/Styles'
-import { Context } from '../../state'
+// State
+import { context } from '../../../state'
 
-import validate from '../../validators/validate'
+// Styled Components
+import { Wrapper, Footer, Form, Field, Label, Error } from '../../styles'
+import { ExtMain, ExtendField } from './styles'
+
+// Utils
+import validate from '../../../validators/validate'
 
 const Billing = () => {
-	const { state, dispatch } = React.useContext(Context)
+	const { state, dispatch } = React.useContext(context)
 	const [form, setForm] = React.useState({
 		cardNo: state.user_data.billing_info.cardNo,
 		expiry: state.user_data.billing_info.expiry,
@@ -464,31 +460,3 @@ const Billing = () => {
 }
 
 export default Billing
-
-const ExtMain = styled(Main)`
-	> div {
-		width: 640px;
-	}
-	h4 {
-		span {
-			font-weight: 400;
-			font-size: 14px;
-			color: #888d9d;
-		}
-	}
-`
-
-const ExtendField = styled(Field)`
-	display: flex;
-	> div:first-child {
-		input {
-			width: 200px;
-		}
-	}
-	> div:last-child {
-		margin-left: 24px;
-		input {
-			width: 96px;
-		}
-	}
-`

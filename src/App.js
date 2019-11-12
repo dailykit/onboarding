@@ -2,21 +2,25 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
 
-import Register from './pages/register'
-import Layout from './components/Layout'
+// State
+import { context, state as initialState, reducers } from './state'
 
-import RegisterEmail from './pages/basicInfo/RegisterEmail'
-import AboutCompany from './pages/basicInfo/AboutCompany'
-import AboutYourself from './pages/basicInfo/AboutYourself'
+// Components
+import { Layout } from './components'
 
-import Hosting from './pages/setupAccount/Hosting'
+// Pages
+import Register from './pages/Register'
+import {
+	RegisterEmail,
+	AboutCompany,
+	AboutYourself,
+	Hosting,
+	OnboardSupport,
+	CustomSupport,
+	Billing
+} from './pages'
 
-import Billing from './pages/setupAccount/Billing'
-
-import { Context, state as initialState, reducers } from './state/index'
-import OnboardSupport from './pages/setupAccount/OnboardSupport'
-import CustomSupport from './pages/setupAccount/CustomSupport'
-
+// Global Styles
 const GlobalStyle = createGlobalStyle`
 	@import url('https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i&display=swap');
 	* {
@@ -59,9 +63,9 @@ const App = () => {
 						exact
 						path="/register"
 						render={() => (
-							<Context.Provider value={{ state, dispatch }}>
+							<context.Provider value={{ state, dispatch }}>
 								<Layout>{StepToRender()}</Layout>
-							</Context.Provider>
+							</context.Provider>
 						)}
 					/>
 				</Switch>

@@ -18,7 +18,6 @@ export const Footer = styled.footer`
 		font-weight: 500;
 	}
 `
-
 export const Main = styled.main`
 	background: #fff;
 	height: calc(100% - 100px);

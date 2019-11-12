@@ -1,13 +1,17 @@
 import React from 'react'
-import styled from 'styled-components'
 
-import { Footer, Main, Wrapper } from '../basicInfo/Styles'
+// State
+import { context } from '../../../state'
 
-import BulbEmoji from '../../assets/svgs/bulb'
-import { Context } from '../../state'
+// Styled Components
+import { Footer, Main, Wrapper } from '../../styles'
+import { RadioWrapper, Label, Tip } from './styles'
+
+// Assets
+import { BulbEmoji } from '../../../assets/svgs'
 
 const Hosting = () => {
-	const { state, dispatch } = React.useContext(Context)
+	const { state, dispatch } = React.useContext(context)
 	const [type, setType] = React.useState(state.user_data.hosting.type)
 	const [plan, setPlan] = React.useState(state.user_data.hosting.plan)
 
@@ -115,61 +119,3 @@ const Hosting = () => {
 }
 
 export default Hosting
-
-const RadioWrapper = styled.div(
-	({ variant }) => `
-		margin-bottom: 48px;
-		width: 294px;
-		height: ${variant === 'rectangle' ? '64px' : '48px'};
-		border-radius: ${variant === 'rectangle' ? '8px' : '48px'};
-		background: #fafafa;
-		border: 1px solid #ececec;
-		padding-left: 4px;
-		display: flex;
-		align-items: center;
-	`
-)
-
-const Label = styled.label(
-	({ variant }) => `
-		&:first-child {
-			margin-right: 4px;
-		}
-		span {
-			cursor: pointer;
-			display: block;
-			width: 140px;
-			height: ${variant === 'rectangle' ? '56px' : '40px'};
-			border-radius: ${variant === 'rectangle' ? '8px' : '40px'};
-			line-height: ${variant === 'rectangle' ? '56px' : '40px'};
-			text-align: center;
-			color: #888d9d;
-			transition: 0.3s ease-in-out;
-		}
-		input {
-			position: absolute;
-			visibility: hidden;
-		}
-		input:checked ~ span {
-			background: #00a7e1;
-			color: #fff;
-		}
-	`
-)
-
-const Tip = styled.div`
-	display: flex;
-	span {
-		margin-right: 16px;
-	}
-	p {
-		font-size: 14px;
-		color: #888d9d;
-		font-weight: 100;
-		font-style: italic;
-		a {
-			color: #00a7e1;
-			text-decoration: none;
-		}
-	}
-`

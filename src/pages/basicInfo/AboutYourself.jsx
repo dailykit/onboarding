@@ -1,12 +1,16 @@
 import React from 'react'
 
-import { Footer, Main, Wrapper, Field, Label, Form, Error } from './Styles'
-import { Context } from '../../state'
+// State
+import { context } from '../../state'
 
+// Styled Components
+import { Footer, Main, Wrapper, Field, Label, Form, Error } from '../styles'
+
+// Utils
 import validate from '../../validators/validate'
 
 const AboutYourself = () => {
-	const { state, dispatch } = React.useContext(Context)
+	const { state, dispatch } = React.useContext(context)
 	const [form, setForm] = React.useState({
 		name: state.user_data.name,
 		designation: state.user_data.designation,

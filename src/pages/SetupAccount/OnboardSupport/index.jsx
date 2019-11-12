@@ -1,13 +1,17 @@
 import React from 'react'
-import styled from 'styled-components'
 
-import { Footer, Main, Wrapper } from '../basicInfo/Styles'
+// State
+import { context } from '../../../state'
 
-import BulbEmoji from '../../assets/svgs/bulb'
-import { Context } from '../../state'
+// Styled Components
+import { Footer, Wrapper } from '../../styles'
+import { ExtMain, CheckBoxWrapper, Info, Tip, Card } from './styles'
+
+// Assets
+import { BulbEmoji } from '../../../assets/svgs'
 
 const OnboardSupport = () => {
-	const { state, dispatch } = React.useContext(Context)
+	const { state, dispatch } = React.useContext(context)
 	const [onboard, setOnboard] = React.useState(state.user_data.onboard)
 
 	const nextPage = () => {
@@ -81,82 +85,3 @@ const OnboardSupport = () => {
 }
 
 export default OnboardSupport
-
-const ExtMain = styled(Main)`
-	> div {
-		width: 640px;
-	}
-`
-
-const CheckBoxWrapper = styled.div`
-	margin-top: 32px;
-	label {
-		font-size: 16px;
-		color: #555b6e;
-		margin-left: 8px;
-	}
-`
-
-const Info = styled.div`
-	display: flex;
-	border-top: 1px solid rgba(0, 0, 0, 0.1);
-	margin-top: 32px;
-	padding-top: 32px;
-	ul {
-		padding-left: 32px;
-		margin-top: 24px;
-		li {
-			font-size: 14px;
-			color: #555b6e;
-			line-height: 24px;
-		}
-	}
-`
-
-const Tip = styled.div`
-	display: flex;
-	span {
-		margin-right: 16px;
-	}
-	p {
-		font-size: 14px;
-		color: #555b6e;
-	}
-`
-
-const Card = styled.div`
-	width: 260px;
-	height: 180px;
-	display: flex;
-	padding: 16px;
-	border-radius: 4px;
-	text-align: center;
-	flex-direction: column;
-	border: 1px solid rgba(0, 0, 0, 0.1);
-	h4 {
-		font-size: 14px;
-		margin: 0;
-		font-weight: 400;
-		color: #888d9d;
-		padding-bottom: 12px;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-	}
-	#strike {
-		font-size: 12px;
-		text-decoration-line: line-through;
-		color: #888d9d;
-		margin-top: 16px;
-	}
-	#discount {
-		font-size: 12px;
-		font-feature-settings: 'cpsp' on;
-		color: #ff8484;
-		margin: 8px 0 24px 0;
-	}
-	#price {
-		font-weight: 500;
-		font-size: 20px;
-		line-height: 23px;
-		color: #555b6e;
-	}
-`

@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-import { EyesEmoji, HandShakeEmoji } from '../assets/svgs/index'
+// Assets
+import { EyesEmoji, HandShakeEmoji } from '../assets/svgs'
 import BrandLogo from '../assets/images/logo.png'
 
 const Register = () => {

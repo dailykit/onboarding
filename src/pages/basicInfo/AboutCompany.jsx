@@ -1,12 +1,16 @@
 import React from 'react'
 
-import { Footer, Main, Wrapper, Field, Label, Form, Error } from './Styles'
-import { Context } from '../../state'
+// State
+import { context } from '../../state'
 
+// Styled Components
+import { Footer, Main, Wrapper, Field, Label, Form, Error } from '../styles'
+
+// Utils
 import validate from '../../validators/validate'
 
 const AboutCompany = () => {
-	const { state, dispatch } = React.useContext(Context)
+	const { state, dispatch } = React.useContext(context)
 	const [form, setForm] = React.useState({
 		company: state.user_data.company,
 		employeesCount: state.user_data.employeesCount

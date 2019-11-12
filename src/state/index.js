@@ -3,6 +3,6 @@ import { createContext } from 'react'
 import state from './state'
 import reducers from './reducers'
 
-const Context = createContext()
+const context = createContext()
 
-export { Context, state, reducers }
+export { context, state, reducers }

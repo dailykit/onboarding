@@ -1,4 +1,5 @@
-import EyesEmoji from "./eyes";
-import HandShakeEmoji from "./handshake";
+import EyesEmoji from './eyes'
+import HandShakeEmoji from './handshake'
+import BulbEmoji from './bulb'
 
-export { EyesEmoji, HandShakeEmoji };
+export { EyesEmoji, HandShakeEmoji, BulbEmoji }

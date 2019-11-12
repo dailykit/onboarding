@@ -1,5 +1,5 @@
-export const NEXT_PAGE = 'NEXT_PAGE'
-export const PREV_PAGE = 'PREV_PAGE'
+const NEXT_PAGE = 'NEXT_PAGE'
+const PREV_PAGE = 'PREV_PAGE'
 const SET_FORM1 = 'SET_FORM1'
 const SET_FORM2 = 'SET_FORM2'
 const SET_FORM3 = 'SET_FORM3'
