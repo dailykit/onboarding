@@ -125,12 +125,6 @@ const ExtMain = styled(Main)`
 	> div {
 		width: 640px;
 	}
-	h2 {
-		font-size: 24px;
-		font-weight: 400;
-		color: #555b6e;
-		margin-bottom: 24px;
-	}
 	h4 {
 		margin-top: 48px;
 		font-size: 16px;
@@ -196,6 +190,7 @@ const Label = styled.label`
 				font-size: 12px;
 				opacity: 0.7;
 				margin-top: 4px;
+				font-weight: 400;
 			}
 		}
 	}

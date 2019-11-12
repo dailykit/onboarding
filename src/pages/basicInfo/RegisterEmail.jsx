@@ -37,7 +37,7 @@ const RegisterEmail = () => {
 		<Wrapper>
 			<Main>
 				<div>
-					<h4>Register with your work address</h4>
+					<h2>Register with your work address</h2>
 					<Form>
 						<Field>
 							<input

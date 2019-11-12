@@ -75,7 +75,7 @@ const RegisterWrapper = styled.div`
 		padding: 0 64px;
 		h1 {
 			width: 60%;
-			font-weight: 300;
+			font-weight: 400;
 			font-size: 48px;
 			color: #555b6e;
 			line-height: 88px;

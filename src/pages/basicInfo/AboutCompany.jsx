@@ -41,7 +41,7 @@ const AboutCompany = () => {
 		<Wrapper>
 			<Main>
 				<div>
-					<h4>Tell us about your company</h4>
+					<h2>Tell us about your company</h2>
 					<Form>
 						<Field>
 							<input

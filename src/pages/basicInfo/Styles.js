@@ -15,6 +15,7 @@ export const Footer = styled.footer`
 		font-size: 14px;
 		color: #fff;
 		cursor: pointer;
+		font-weight: 500;
 	}
 `
 
@@ -35,7 +36,7 @@ export const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	h2 {
-		font-size: 24px;
+		font-size: 20px;
 		font-weight: 400;
 		color: #555b6e;
 		margin-bottom: 24px;
@@ -49,7 +50,7 @@ export const Wrapper = styled.div`
 `
 
 export const Form = styled.form`
-	width: 240px;
+	width: 320px;
 	#terms__label {
 		font-size: 14px;
 		color: #888d9d;
@@ -110,5 +111,5 @@ export const Error = styled.span`
 	margin-bottom: 16px;
 	font-size: 14px;
 	color: #fc3259;
-	font-weight: 500;
+	font-weight: 400;
 `

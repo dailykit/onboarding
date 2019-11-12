@@ -285,7 +285,7 @@ const AboutYourself = () => {
 		<Wrapper>
 			<Main>
 				<div>
-					<h4>Tell us about yourself</h4>
+					<h2>Tell us about yourself</h2>
 					<Form>
 						<Field>
 							<input

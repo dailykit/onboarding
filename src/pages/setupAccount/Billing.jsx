@@ -469,18 +469,7 @@ const ExtMain = styled(Main)`
 	> div {
 		width: 640px;
 	}
-	h2 {
-		font-size: 24px;
-		font-weight: 400;
-		color: #555b6e;
-		margin-bottom: 24px;
-	}
 	h4 {
-		margin-top: 48px;
-		font-size: 16px;
-		font-weight: 500;
-		color: #555b6e;
-		margin-bottom: 24px;
 		span {
 			font-weight: 400;
 			font-size: 14px;
