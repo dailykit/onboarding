@@ -1,25 +1,40 @@
 import React from 'react'
 
-import { Footer, Main, Wrapper, Field, Label, Form } from './Styles'
+import { Footer, Main, Wrapper, Field, Label, Form, Error } from './Styles'
 import { Context } from '../../state'
+
+import validate from '../../validators/validate'
 
 const AboutYourself = () => {
 	const { state, dispatch } = React.useContext(Context)
-	const [name, setName] = React.useState(state.user_data.name)
-	const [designation, setDesignation] = React.useState(
-		state.user_data.designation
-	)
-	const [phoneCode, setPhoneCode] = React.useState(state.user_data.phoneCode)
-	const [phoneNo, setPhoneNo] = React.useState(state.user_data.phoneNo)
+	const [form, setForm] = React.useState({
+		name: state.user_data.name,
+		designation: state.user_data.designation,
+		phoneCode: state.user_data.phoneCode,
+		phoneNo: state.user_data.phoneNo
+	})
+
+	const [errors, setErrors] = React.useState({
+		name: '',
+		designation: '',
+		phoneCode: '',
+		phoneNo: ''
+	})
+
+	const handleChange = e => {
+		const { name, value } = e.target
+		setForm(form => ({
+			...form,
+			[name]: value
+		}))
+		validate(value, name, 'form3', setErrors)
+	}
 
 	const nextPage = () => {
 		dispatch({
 			type: 'SET_FORM3',
 			payload: {
-				name,
-				designation,
-				phoneCode,
-				phoneNo
+				...form
 			}
 		})
 		dispatch({ type: 'NEXT_PAGE' })
@@ -276,30 +291,36 @@ const AboutYourself = () => {
 							<input
 								type="text"
 								id="name"
+								name="name"
 								required
-								value={name}
-								onChange={e => setName(e.target.value)}
+								value={form.name}
+								onChange={e => handleChange(e)}
 							/>
 							<Label htmlFor="name">Your Name</Label>
 						</Field>
+						{errors.name && <Error>{errors.name}</Error>}
 						<Field>
 							<input
 								type="text"
 								id="designation"
+								name="designation"
 								required
-								value={designation}
-								onChange={e => setDesignation(e.target.value)}
+								value={form.designation}
+								onChange={e => handleChange(e)}
 							/>
 							<Label htmlFor="designation">
 								Your Designation
 							</Label>
 						</Field>
+						{errors.designation && (
+							<Error>{errors.designation}</Error>
+						)}
 						<Field style={{ display: 'flex' }}>
 							<select
-								name="phoneCodes"
-								id="phoneCodes"
-								value={phoneCode}
-								onChange={e => setPhoneCode(e.target.value)}>
+								name="phoneCode"
+								id="phoneCode"
+								value={form.phoneCode}
+								onChange={e => handleChange(e)}>
 								{codes.map(code => (
 									<option key={code} value={code}>
 										{code}
@@ -309,22 +330,27 @@ const AboutYourself = () => {
 							<div>
 								<input
 									type="tel"
-									id="phoneNumber"
-									name="phoneNumber"
+									id="phoneNo"
+									name="phoneNo"
 									maxLength="10"
 									required
-									value={phoneNo}
-									onChange={e => setPhoneNo(e.target.value)}
+									value={form.phoneNo}
+									onChange={e => handleChange(e)}
 									style={{
 										width: '205px',
 										marginLeft: '16px'
 									}}
 								/>
 								<Label
-									htmlFor="phoneNumber"
+									htmlFor="phoneNo"
 									style={{ marginLeft: '16px' }}>
 									Your Phone Number
 								</Label>
+								{errors.phoneNo && (
+									<Error style={{ marginLeft: '16px' }}>
+										{errors.phoneNo}
+									</Error>
+								)}
 							</div>
 						</Field>
 					</Form>

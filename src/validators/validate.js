@@ -2,6 +2,7 @@ import * as yup from 'yup'
 
 import formSchema1 from './formSchema1'
 import formSchema2 from './formSchema2'
+import formSchema3 from './formSchema3'
 
 const validate = (value, field, form, setErrors) => {
 	let schema = {}
@@ -11,6 +12,9 @@ const validate = (value, field, form, setErrors) => {
 			break
 		case 'form2':
 			schema = formSchema2
+			break
+		case 'form3':
+			schema = formSchema3
 			break
 		default:
 			break
