@@ -1,49 +1,61 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Wrapper, Footer, Main, Form, Field, Label } from '../basicInfo/Styles'
+import {
+	Wrapper,
+	Footer,
+	Main,
+	Form,
+	Field,
+	Label,
+	Error
+} from '../basicInfo/Styles'
 import { Context } from '../../state'
+
+import validate from '../../validators/validate'
 
 const Billing = () => {
 	const { state, dispatch } = React.useContext(Context)
-	const [cardNo, setCardNo] = React.useState(
-		state.user_data.billing_info.cardNo
-	)
-	const [expiry, setExpiry] = React.useState(
-		state.user_data.billing_info.expiry
-	)
-	const [cvv, setCvv] = React.useState(state.user_data.billing_info.cvv)
-	const [cardName, setCardName] = React.useState(
-		state.user_data.billing_info.name
-	)
+	const [form, setForm] = React.useState({
+		cardNo: state.user_data.billing_info.cardNo,
+		expiry: state.user_data.billing_info.expiry,
+		cvv: state.user_data.billing_info.cvv,
+		cardName: state.user_data.billing_info.cardName,
+		address: state.user_data.billing_address.address,
+		city: state.user_data.billing_address.city,
+		zip: state.user_data.billing_address.zip,
+		name: state.user_data.billing_address.name,
+		phoneCode: state.user_data.billing_address.phoneCode,
+		phoneNo: state.user_data.billing_address.phoneNo
+	})
 
-	const [address, setAddress] = React.useState(
-		state.user_data.billing_address.address
-	)
-	const [city, setCity] = React.useState(state.user_data.billing_address.city)
-	const [zip, setZip] = React.useState(state.user_data.billing_address.zip)
-	const [name, setName] = React.useState(state.user_data.billing_address.name)
-	const [phoneCode, setPhoneCode] = React.useState(
-		state.user_data.billing_address.phoneCode
-	)
-	const [phoneNo, setPhoneNo] = React.useState(
-		state.user_data.billing_address.phoneNo
-	)
+	const [errors, setErrors] = React.useState({
+		cardNo: '',
+		expiry: '',
+		cvv: '',
+		cardName: '',
+		address: '',
+		city: '',
+		zip: '',
+		name: '',
+		phoneCode: '',
+		phoneNo: ''
+	})
+
+	const handleChange = e => {
+		const { name, value } = e.target
+		setForm(form => ({
+			...form,
+			[name]: value
+		}))
+		validate(value, name, 'form4', setErrors)
+	}
 
 	const checkout = () => {
 		dispatch({
 			type: 'SET_FORM7',
 			payload: {
-				cardNo,
-				expiry,
-				cvv,
-				cardName,
-				address,
-				city,
-				zip,
-				name,
-				phoneCode,
-				phoneNo
+				...form
 			}
 		})
 	}
@@ -298,99 +310,114 @@ const Billing = () => {
 						<Field>
 							<input
 								type="text"
-								id="card"
+								id="cardNo"
+								name="cardNo"
 								required
-								value={cardNo}
-								onChange={e => setCardNo(e.target.value)}
+								value={form.cardNo}
+								onChange={e => handleChange(e)}
 							/>
-							<Label htmlFor="card">Card No.</Label>
+							<Label htmlFor="cardNo">Card No.</Label>
 						</Field>
+						{errors.cardNo && <Error>{errors.cardNo}</Error>}
 						<ExtendField>
 							<div>
 								<input
 									type="text"
 									id="expiry"
+									name="expiry"
 									required
-									value={expiry}
-									onChange={e => setExpiry(e.target.value)}
+									value={form.expiry}
+									onChange={e => handleChange(e)}
 								/>
 								<Label htmlFor="expiry">
 									Expiry Date(dd/mm/yyyy)
 								</Label>
 							</div>
+							{errors.expiry && <Error>{errors.expiry}</Error>}
 							<div>
 								<input
 									type="text"
 									id="cvv"
+									name="cvv"
 									required
-									value={cvv}
-									onChange={e => setCvv(e.target.value)}
+									value={form.cvv}
+									onChange={e => handleChange(e)}
 								/>
 								<Label htmlFor="cvv">CVV</Label>
 							</div>
+							{errors.cvv && <Error>{errors.cvv}</Error>}
 						</ExtendField>
 						<Field>
 							<input
 								type="text"
 								id="cardName"
+								name="cardName"
 								required
-								value={cardName}
-								onChange={e => setCardName(e.target.value)}
+								value={form.cardName}
+								onChange={e => handleChange(e)}
 							/>
 							<Label htmlFor="cardName">Name on Card</Label>
 						</Field>
+						{errors.cardName && <Error>{errors.cardName}</Error>}
 					</Form>
-					<h2>Billing Address</h2>
+					<h2 style={{ marginTop: '16px' }}>Billing Address</h2>
 					<Form>
 						<Field>
 							<input
 								type="text"
 								id="address"
+								name="address"
 								required
-								value={address}
-								onChange={e => setAddress(e.target.value)}
+								value={form.address}
+								onChange={e => handleChange(e)}
 							/>
 							<Label htmlFor="address">Enter your Address</Label>
 						</Field>
+						{errors.address && <Error>{errors.address}</Error>}
 						<ExtendField>
 							<div>
 								<input
 									type="text"
 									id="city"
+									name="city"
 									required
-									value={city}
-									onChange={e => setCity(e.target.value)}
+									value={form.city}
+									onChange={e => handleChange(e)}
 								/>
 								<Label htmlFor="city">City</Label>
 							</div>
+							{errors.city && <Error>{errors.city}</Error>}
 							<div>
 								<input
 									type="number"
 									id="zip"
-									max-length="10"
+									name="zip"
 									required
-									value={zip}
-									onChange={e => setZip(e.target.value)}
+									value={form.zip}
+									onChange={e => handleChange(e)}
 								/>
 								<Label htmlFor="zip">Zip Code</Label>
 							</div>
+							{errors.zip && <Error>{errors.zip}</Error>}
 						</ExtendField>
 						<Field>
 							<input
 								type="text"
 								id="name"
+								name="name"
 								required
-								value={name}
-								onChange={e => setName(e.target.value)}
+								value={form.name}
+								onChange={e => handleChange(e)}
 							/>
 							<Label htmlFor="name">Name</Label>
 						</Field>
+						{errors.name && <Error>{errors.name}</Error>}
 						<Field style={{ display: 'flex' }}>
 							<select
-								name="phoneCodes"
-								id="phoneCodes"
-								value={phoneCode}
-								onChange={e => setPhoneCode(e.target.value)}>
+								name="phoneCode"
+								id="phoneCode"
+								value={form.phoneCode}
+								onChange={e => handleChange(e)}>
 								{codes.map(code => (
 									<option key={code} value={code}>
 										{code}
@@ -400,23 +427,24 @@ const Billing = () => {
 							<div>
 								<input
 									type="tel"
-									id="phoneNumber"
-									name="phoneNumber"
+									id="phoneNo"
+									name="phoneNo"
 									maxLength="10"
 									required
-									value={phoneNo}
-									onChange={e => setPhoneNo(e.target.value)}
+									value={form.phoneNo}
+									onChange={e => handleChange(e)}
 									style={{
 										width: '205px',
 										marginLeft: '16px'
 									}}
 								/>
 								<Label
-									htmlFor="phoneNumber"
+									htmlFor="phoneNo"
 									style={{ marginLeft: '16px' }}>
 									Your Phone Number
 								</Label>
 							</div>
+							{errors.phoneNo && <Error>{errors.phoneNo}</Error>}
 						</Field>
 					</Form>
 				</div>
