@@ -1,19 +1,32 @@
 import React from 'react'
 
-import { Footer, Main, Wrapper, Field, Label, Form } from './Styles'
+import { Footer, Main, Wrapper, Field, Label, Form, Error } from './Styles'
 import { Context } from '../../state'
+
+import validate from '../../validators/validate'
 
 const RegisterEmail = () => {
 	const { state, dispatch } = React.useContext(Context)
-	const [email, setEmail] = React.useState(state.user_data.email)
-	const [password, setPassword] = React.useState(state.user_data.email)
+	const [form, setForm] = React.useState({
+		email: state.user_data.email,
+		password: state.user_data.password
+	})
+	const [errors, setErrors] = React.useState({ email: '', password: '' })
+
+	const handleChange = e => {
+		const { name, value } = e.target
+		setForm(form => ({
+			...form,
+			[name]: value
+		}))
+		validate(value, name, 'form1', setErrors)
+	}
 
 	const nextPage = () => {
 		dispatch({
 			type: 'SET_FORM1',
 			payload: {
-				email,
-				password
+				...form
 			}
 		})
 		dispatch({ type: 'NEXT_PAGE' })
@@ -30,22 +43,26 @@ const RegisterEmail = () => {
 							<input
 								type="text"
 								id="email"
+								name="email"
 								required
-								value={email}
-								onChange={e => setEmail(e.target.value)}
+								value={form.email}
+								onChange={e => handleChange(e)}
 							/>
 							<Label htmlFor="email">Email</Label>
 						</Field>
+						{errors.email && <Error>{errors.email}</Error>}
 						<Field>
 							<input
 								type="password"
 								id="password"
+								name="password"
 								required
-								value={password}
-								onChange={e => setPassword(e.target.value)}
+								value={form.password}
+								onChange={e => handleChange(e)}
 							/>
 							<Label htmlFor="password">Password</Label>
 						</Field>
+						{errors.password && <Error>{errors.password}</Error>}
 						<div>
 							<input type="checkbox" id="terms" />
 							<label htmlFor="terms" id="terms__label">

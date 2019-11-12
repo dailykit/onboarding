@@ -74,7 +74,12 @@ export const Label = styled.label`
 `
 
 export const Field = styled.div`
-	margin-bottom: 16px;
+	height: 56px;
+	margin-top: 8px;
+	input {
+		font-size: 16px;
+		color: #686d7b;
+	}
 	input,
 	select {
 		width: 320px;
@@ -87,12 +92,23 @@ export const Field = styled.div`
 		}
 		&:focus,
 		&:valid {
+			border-bottom: 2px solid #04a777;
 			& + label {
-				transform: translateY(-64px);
+				color: #04a777;
+				font-size: 12px;
+				transform: translateY(-54px);
 			}
 		}
 	}
 	select[name='phoneCodes'] {
 		width: auto;
 	}
+`
+
+export const Error = styled.span`
+	display: block;
+	margin-bottom: 16px;
+	font-size: 14px;
+	color: #fc3259;
+	font-weight: 500;
 `
