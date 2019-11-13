@@ -4,7 +4,7 @@ import React from 'react'
 import { context } from '../../state/'
 
 // Styled Components
-import { Step, Header, Main, Aside, Stage } from './styles'
+import { Step, Header, Main, Aside, Stage, Cart } from './styles'
 
 // Assets
 import LogoMark from '../../assets/images/logomark.png'
@@ -30,6 +30,35 @@ const Layout = ({ children }) => {
 			return 62
 		} else if (step >= 6) {
 			return 83
+		}
+	}
+
+	const evalTotal = () => {
+		const { type: hostingType, plan: hostingPlan } = state.user_data.hosting
+		const {
+			required: customRequired,
+			plan: customPlan
+		} = state.user_data.custom
+
+		let hosting = hostingType === 'cloud' ? hostingPlan : 0
+		let onboard = state.user_data.onboard ? 1000 : 0
+		let custom = customRequired
+			? customPlan === 135
+				? 135 * 50
+				: customPlan === 150
+				? 150 * 10
+				: 100 * 100
+			: 0
+
+		switch (state.step) {
+			case 3:
+				return hosting
+			case 4:
+				return hosting + onboard
+			case 5:
+				return hosting + onboard + custom
+			default:
+				return hosting + onboard + custom
 		}
 	}
 
@@ -90,6 +119,50 @@ const Layout = ({ children }) => {
 						</>
 					)}
 				</Stage>
+				{state.step > 2 && (
+					<Cart>
+						<div>
+							<span>Hosting</span>
+							<span>
+								$
+								{state.user_data.hosting.type === 'cloud'
+									? state.user_data.hosting.plan
+									: 0}
+							</span>
+						</div>
+						{state.step > 3 && (
+							<div>
+								<span>Onboarding Support</span>
+								<span>
+									${state.user_data.onboard ? 1000 : 0}
+								</span>
+							</div>
+						)}
+						{state.step > 4 && (
+							<div>
+								<span>
+									Custom Support(
+									{state.user_data.custom.plan === 135
+										? 'x50hrs'
+										: state.user_data.custom.plan === 150
+										? 'x10hrs'
+										: 'x100hrs'}
+									)
+								</span>
+								<span>
+									$
+									{state.user_data.custom.required
+										? state.user_data.custom.plan
+										: 0}
+								</span>
+							</div>
+						)}
+						<div>
+							<span>Payable Now</span>
+							<span>${evalTotal()}</span>
+						</div>
+					</Cart>
+				)}
 			</Aside>
 		</Step>
 	)

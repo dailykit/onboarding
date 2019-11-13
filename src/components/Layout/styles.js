@@ -38,6 +38,8 @@ export const Main = styled.main`
 `
 export const Aside = styled.aside`
 	grid-area: aside;
+	display: flex;
+	flex-direction: column;
 	height: calc(100vh - 200px);
 	padding: ${({ theme }) =>
 		`${theme.basePt * 4}px 0 0 ${theme.basePt * 10}px`};
@@ -109,6 +111,37 @@ export const Stage = styled.ul(
 			&::after {
 				background: #04a777;
 			}
+		}
+	}
+`
+)
+
+export const Cart = styled.div(
+	({ theme: { basePt, colors, borderRadius } }) => `
+	width: 100%;
+	color: #fff;
+	height: auto;
+	font-weight: 300;
+	padding: ${basePt * 2}px;
+	padding-bottom: 0;
+	margin-left: -${basePt * 5}px;
+	margin-top: auto;
+	background: ${colors.darkText};
+	border-radius: ${borderRadius.md}px;
+	div {
+		height: ${basePt * 4}px;
+		display: flex;
+		justify-content: space-between;
+		span {
+			font-size: ${basePt * 1.75}px;
+			:last-child {
+				font-weight: 400;
+			}
+		}
+		:last-child {
+			border-top: 1px solid rgba(0,0,0,0.2);
+			align-items: center;
+			height: 40px;
 		}
 	}
 `

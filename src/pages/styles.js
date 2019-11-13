@@ -3,11 +3,12 @@ import styled from 'styled-components'
 export const Footer = styled.footer(
 	({ theme: { basePt, colors } }) => `
 	display: flex;
-	height: ${basePt * 12}px;
+	height: ${basePt * 12.875}px;
 	justify-content: space-between;
 	align-items: center;
 	button {
 		height: ${basePt * 5}px;
+		line-height: ${basePt * 5.25}px;
 		text-transform: uppercase;
 		background: ${colors.primary};
 		border-radius: ${basePt * 6}px;
@@ -24,7 +25,7 @@ export const Footer = styled.footer(
 export const Main = styled.main(
 	({ theme: { basePt } }) => `
 	background: #fff;
-	height: calc(100% - ${basePt * 12}px);
+	height: calc(100% - ${basePt * 12.875}px);
 	border: 1px solid #ececec;
 	padding-top: ${basePt * 10}px;
 	> div {
