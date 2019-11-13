@@ -10,7 +10,7 @@ import { ExtMain, ExtendField } from './styles'
 // Utils
 import validate from '../../../validators/validate'
 
-const Billing = () => {
+const Billing = props => {
 	const { state, dispatch } = React.useContext(context)
 	const [form, setForm] = React.useState({
 		cardNo: state.user_data.billing_info.cardNo,
@@ -54,7 +54,9 @@ const Billing = () => {
 				...form
 			}
 		})
+		props.history.push('/subdomain')
 	}
+
 	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
 
 	const codes = [

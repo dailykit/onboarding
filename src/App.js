@@ -9,8 +9,9 @@ import { context, state as initialState, reducers } from './state'
 import { Layout } from './components'
 
 // Pages
-import Register from './pages/Register'
 import {
+	Register,
+	SubDomain,
 	RegisterEmail,
 	AboutCompany,
 	AboutYourself,
@@ -49,7 +50,7 @@ const theme = {
 
 const App = () => {
 	const [state, dispatch] = React.useReducer(reducers, initialState)
-	const StepToRender = () => {
+	const StepToRender = props => {
 		switch (state.step) {
 			case 0:
 				return <RegisterEmail />
@@ -64,7 +65,7 @@ const App = () => {
 			case 5:
 				return <CustomSupport />
 			case 6:
-				return <Billing />
+				return <Billing {...props} />
 			default:
 				return <RegisterEmail />
 		}
@@ -79,12 +80,15 @@ const App = () => {
 						<Route
 							exact
 							path="/register"
-							render={() => (
+							render={props => (
 								<context.Provider value={{ state, dispatch }}>
-									<Layout>{StepToRender()}</Layout>
+									<Layout {...props}>
+										{StepToRender(props)}
+									</Layout>
 								</context.Provider>
 							)}
 						/>
+						<Route exact path="/subdomain" component={SubDomain} />
 					</Switch>
 				</Router>
 			</ThemeProvider>
