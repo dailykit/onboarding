@@ -62,6 +62,11 @@ const Layout = ({ children }) => {
 		}
 	}
 
+	const isStepActive = start => {
+		const steps = Array.from(new Array(7 - start).keys(), i => i + start)
+		return steps.includes(state.step) ? 'active' : ''
+	}
+
 	return (
 		<Step>
 			<Header>
@@ -74,46 +79,24 @@ const Layout = ({ children }) => {
 			<Aside>
 				<Stage height={evalHeightFirst(state.step)}>
 					Basic Information
-					<li
-						className={`${[0, 1, 2, 3, 4, 5, 6].includes(
-							state.step
-						) === true && 'active'}`}>
+					<li className={isStepActive(0)}>
 						Register with your work email
 					</li>
-					<li
-						className={`${[1, 2, 3, 4, 5, 6].includes(state.step) &&
-							'active'}`}>
+					<li className={isStepActive(1)}>
 						Tell us about your company
 					</li>
-					<li
-						className={`${[2, 3, 4, 5, 6].includes(state.step) &&
-							'active'}`}>
-						Tell us about yourself
-					</li>
+					<li className={isStepActive(2)}>Tell us about yourself</li>
 				</Stage>
 				<Stage height={evalHeightSecond(state.step)}>
 					Setup your Account
 					{state.step > 2 && (
 						<>
-							<li
-								className={`${[3, 4, 5, 6].includes(
-									state.step
-								) === true && 'active'}`}>
-								Hosting
-							</li>
-							<li
-								className={`${[4, 5, 6].includes(state.step) ===
-									true && 'active'}`}>
+							<li className={isStepActive(3)}>Hosting</li>
+							<li className={isStepActive(4)}>
 								Onboarding Support
 							</li>
-							<li
-								className={`${[5, 6].includes(state.step) ===
-									true && 'active'}`}>
-								Custom Support
-							</li>
-							<li
-								className={`${[6].includes(state.step) ===
-									true && 'active'}`}>
+							<li className={isStepActive(5)}>Custom Support</li>
+							<li className={isStepActive(6)}>
 								Billing Information
 							</li>
 						</>
