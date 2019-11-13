@@ -2,30 +2,34 @@ import styled from 'styled-components'
 
 import { Main, Field } from '../../styles'
 
-export const ExtMain = styled(Main)`
+export const ExtMain = styled(Main)(
+	({ theme: { basePt, colors } }) => `
 	> div {
-		width: 640px;
+		width: ${basePt * 40}px;
 	}
 	h4 {
 		span {
 			font-weight: 400;
-			font-size: 14px;
-			color: #888d9d;
+			font-size: ${basePt * 1.75}px;
+			color: ${colors.grayText};
 		}
 	}
 `
+)
 
-export const ExtendField = styled(Field)`
+export const ExtendField = styled(Field)(
+	({ theme: { basePt } }) => `
 	display: flex;
 	> div:first-child {
 		input {
-			width: 200px;
+			width: ${basePt * 25}px;
 		}
 	}
 	> div:last-child {
-		margin-left: 24px;
+		margin-left: ${basePt * 3}px;		
 		input {
-			width: 96px;
+			width: ${basePt * 12}px;
 		}
 	}
 `
+)

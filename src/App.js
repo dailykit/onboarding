@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 // State
 import { context, state as initialState, reducers } from './state'
@@ -31,6 +31,22 @@ const GlobalStyle = createGlobalStyle`
 	}
 `
 
+const theme = {
+	basePt: 8,
+	borderRadius: {
+		sm: 2,
+		md: 4,
+		lg: 8
+	},
+	colors: {
+		primary: '#04A777',
+		darkText: '#555B6E',
+		grayText: '#888D9D',
+		active: '#00A7E1',
+		gray1: '#C3C6CE'
+	}
+}
+
 const App = () => {
 	const [state, dispatch] = React.useReducer(reducers, initialState)
 	const StepToRender = () => {
@@ -56,20 +72,22 @@ const App = () => {
 	return (
 		<>
 			<GlobalStyle />
-			<Router>
-				<Switch>
-					<Route exact path="/" component={Register} />
-					<Route
-						exact
-						path="/register"
-						render={() => (
-							<context.Provider value={{ state, dispatch }}>
-								<Layout>{StepToRender()}</Layout>
-							</context.Provider>
-						)}
-					/>
-				</Switch>
-			</Router>
+			<ThemeProvider theme={theme}>
+				<Router>
+					<Switch>
+						<Route exact path="/" component={Register} />
+						<Route
+							exact
+							path="/register"
+							render={() => (
+								<context.Provider value={{ state, dispatch }}>
+									<Layout>{StepToRender()}</Layout>
+								</context.Provider>
+							)}
+						/>
+					</Switch>
+				</Router>
+			</ThemeProvider>
 		</>
 	)
 }

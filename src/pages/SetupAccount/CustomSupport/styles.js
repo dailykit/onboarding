@@ -1,56 +1,63 @@
 import styled from 'styled-components'
 import { Main } from '../../styles'
 
-export const ExtMain = styled(Main)`
+export const ExtMain = styled(Main)(
+	({ theme: { basePt, colors } }) => `
 	> div {
-		width: 640px;
+		width: ${basePt * 80}px;
 	}
 	h4 {
-		margin-top: 48px;
-		font-size: 16px;
+		margin-top: ${basePt * 6}px;
+		font-size: ${basePt * 2}px;
 		font-weight: 400;
-		color: #555b6e;
-		margin-bottom: 16px;
+		color: ${colors.darkText};
+		margin-bottom: ${basePt * 2}px;
 	}
 `
+)
 
-export const CheckBoxWrapper = styled.div`
-	margin-top: 32px;
+export const CheckBoxWrapper = styled.div(
+	({ theme: { basePt, colors } }) => `
+	margin-top: ${basePt * 4}px;
 	label {
-		font-size: 16px;
-		color: #555b6e;
-		margin-left: 8px;
+		font-size: ${basePt * 2}px;
+		color: ${colors.darkText};
+		margin-left: ${basePt}px;
 	}
 `
+)
 
-export const RadioWrapper = styled.div`
-	margin-bottom: 48px;
+export const RadioWrapper = styled.div(
+	({ theme: { basePt, colors }, checked }) => `
+	margin-bottom: ${basePt * 6}px;
 	width: 558px;
-	height: 68px;
-	border-radius: 8px;
+	height: ${basePt * 8.5}px;
+	border-radius: ${basePt}px;
 	background: #fafafa;
 	border: 1px solid #ececec;
-	padding-left: 4px;
+	padding-left: ${basePt * 0.5}px;
 	display: flex;
 	align-items: center;
 	position: relative;
 	&::after {
 		content: '';
 		position: absolute;
-		border-radius: 8px;
+		border-radius: ${basePt}px;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
 		background: rgba(251, 251, 251, 0.65);
-		display: ${props => (props.checked ? 'none' : 'block')};
+		display: ${checked ? 'none' : 'block'};
 	}
 `
+)
 
-export const Label = styled.label`
+export const Label = styled.label(
+	({ theme: { basePt, colors, borderRadius } }) => `
 	&:first-child,
 	&:nth-child(2) {
-		margin-right: 4px;
+		margin-right: ${basePt * 0.5}px;
 	}
 	> span {
 		cursor: pointer;
@@ -58,18 +65,18 @@ export const Label = styled.label`
 		flex-direction: column;
 		justify-content: center;
 		width: 180px;
-		height: 56px;
-		border-radius: 6px;
+		height: ${basePt * 7}px;
+		border-radius: ${borderRadius.md}px;
 		color: #888d9d;
 		font-weight: 500;
-		padding-left: 16px;
+		padding-left: ${basePt * 2}px;
 		transition: 0.3s ease-in-out;
 		span {
 			display: block;
 			&:last-child {
-				font-size: 12px;
+				font-size: ${basePt * 1.5}px;
 				opacity: 0.7;
-				margin-top: 4px;
+				margin-top: ${basePt * 0.5}px;
 				font-weight: 400;
 			}
 		}
@@ -79,25 +86,28 @@ export const Label = styled.label`
 		visibility: hidden;
 	}
 	input:checked ~ span {
-		background: #00a7e1;
+		background: ${colors.active};
 		span {
 			color: #fff;
 		}
 	}
 `
+)
 
-export const Tip = styled.div`
+export const Tip = styled.div(
+	({ theme: { basePt, colors } }) => `
 	display: flex;
-	margin-top: 32px;
-	padding-top: 24px;
+	margin-top: ${basePt * 4}px;
+	padding-top: ${basePt * 3}px;
 	border-top: 1px solid rgba(0, 0, 0, 0.1);
 	span {
-		margin-right: 16px;
+		margin-right: ${basePt * 2}px;
 	}
 	p {
-		font-size: 14px;
-		color: #555b6e;
+		font-size: ${basePt * 1.75}px;
+		color: ${colors.darkText};
 		opacity: 0.7;
 		font-style: italic;
 	}
 `
+)

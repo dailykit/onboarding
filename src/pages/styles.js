@@ -1,62 +1,70 @@
 import styled from 'styled-components'
 
-export const Footer = styled.footer`
+export const Footer = styled.footer(
+	({ theme: { basePt, colors } }) => `
 	display: flex;
-	height: 100px;
+	height: ${basePt * 12}px;
 	justify-content: space-between;
 	align-items: center;
 	button {
-		height: 40px;
+		height: ${basePt * 5}px;
 		text-transform: uppercase;
-		background: #04a777;
-		border-radius: 48px;
-		padding: 0 16px;
+		background: ${colors.primary};
+		border-radius: ${basePt * 6}px;
+		padding: 0 ${basePt * 2}px;
 		border: none;
-		font-size: 14px;
+		font-size: ${basePt * 1.75}px;
 		color: #fff;
 		cursor: pointer;
 		font-weight: 500;
 	}
 `
-export const Main = styled.main`
+)
+
+export const Main = styled.main(
+	({ theme: { basePt } }) => `
 	background: #fff;
-	height: calc(100% - 100px);
+	height: calc(100% - ${basePt * 12}px);
 	border: 1px solid #ececec;
-	padding-top: 80px;
+	padding-top: ${basePt * 10}px;
 	> div {
 		margin: 0 auto;
-		width: 322px;
+		width: ${basePt * 40}px;
 	}
 `
+)
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div(
+	({ theme: { basePt, colors } }) => `
 	width: 100%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	h2 {
-		font-size: 20px;
+		font-size: ${basePt * 2.5}px;
 		font-weight: 400;
-		color: #555b6e;
-		margin-bottom: 24px;
+		color: ${colors.darkText};
+		margin-bottom: ${basePt * 3}px;
 	}
 	h4 {
-		font-size: 16px;
+		font-size: ${basePt * 2}px;
 		font-weight: 400;
-		color: #555b6e;
-		margin-bottom: 24px;
+		color: ${colors.darkText};
+		margin-bottom: ${basePt * 3}px;
 	}
 `
+)
 
-export const Form = styled.form`
-	width: 320px;
+export const Form = styled.form(
+	({ theme: { basePt, colors } }) => `
+	width: ${basePt * 40}px;
 	#terms__label {
-		font-size: 14px;
-		color: #888d9d;
-		margin-left: 8px;
+		font-size: ${basePt * 1.75}px;
+		color: ${colors.grayText};
+		margin-left: ${basePt}px;
 		a {
 			text-decoration: none;
-			color: #888d9d;
+			color: ${colors.grayText};
 			font-weight: 500;
 			&:hover {
 				color: #6e7382;
@@ -64,26 +72,30 @@ export const Form = styled.form`
 		}
 	}
 `
+)
 
-export const Label = styled.label`
+export const Label = styled.label(
+	({ theme: { basePt } }) => `
 	display: block;
-	font-size: 14px;
+	font-size: ${basePt * 1.75}px;
 	color: #969696;
 	transition: 0.3s ease-in-out;
-	transform: translateY(-32px);
+	transform: translateY(-${basePt * 4}px);
 `
+)
 
-export const Field = styled.div`
-	height: 56px;
-	margin-top: 8px;
+export const Field = styled.div(
+	({ theme: { basePt, colors } }) => `
+	height: ${basePt * 7}px;
+	margin-top: ${basePt}px;
 	input {
-		font-size: 16px;
+		font-size: ${basePt * 2}px;
 		color: #686d7b;
 	}
 	input,
 	select {
-		width: 320px;
-		height: 48px;
+		width: ${basePt * 40}px;
+		height: ${basePt * 6}px;
 		border: none;
 		border-bottom: 2px solid #e1e1e1;
 		&:focus {
@@ -94,7 +106,7 @@ export const Field = styled.div`
 		&:valid {
 			border-bottom: 2px solid #04a777;
 			& + label {
-				color: #04a777;
+				color: ${colors.primary};
 				font-size: 12px;
 				transform: translateY(-54px);
 			}
@@ -104,11 +116,14 @@ export const Field = styled.div`
 		width: auto;
 	}
 `
+)
 
-export const Error = styled.span`
+export const Error = styled.span(
+	({ theme: { basePt } }) => `
 	display: block;
-	margin-bottom: 16px;
-	font-size: 14px;
+	margin-bottom: ${basePt * 2}px;
+	font-size: ${basePt * 1.75}px;
 	color: #fc3259;
 	font-weight: 400;
 `
+)
