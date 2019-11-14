@@ -8,6 +8,7 @@ import { Footer, Main, Wrapper, Field, Label, Form, Error } from '../styles'
 
 // Utils
 import validate from '../../validators/validate'
+import isValid from '../../validators/isValid'
 
 const RegisterEmail = () => {
 	const { state, dispatch } = React.useContext(context)
@@ -18,9 +19,9 @@ const RegisterEmail = () => {
 	const [password2, setPassword2] = React.useState('')
 
 	const [errors, setErrors] = React.useState({
-		email: '',
-		password: '',
-		password2: ''
+		email: null,
+		password: null,
+		password2: null
 	})
 
 	const handleChange = e => {
@@ -149,8 +150,9 @@ const RegisterEmail = () => {
 				<button onClick={() => prevPage()}>Back</button>
 				<button
 					onClick={() => nextPage()}
+					disabled={!isValid(errors)}
 					style={{
-						background: '#04a777'
+						background: isValid(errors) ? '#04a777' : '#89e4c9'
 					}}>
 					Next
 				</button>

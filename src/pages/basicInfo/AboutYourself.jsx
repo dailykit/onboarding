@@ -8,6 +8,7 @@ import { Footer, Main, Wrapper, Field, Label, Form, Error } from '../styles'
 
 // Utils
 import validate from '../../validators/validate'
+import isValid from '../../validators/isValid'
 
 const AboutYourself = () => {
 	const { state, dispatch } = React.useContext(context)
@@ -19,10 +20,9 @@ const AboutYourself = () => {
 	})
 
 	const [errors, setErrors] = React.useState({
-		name: '',
-		designation: '',
-		phoneCode: '',
-		phoneNo: ''
+		name: null,
+		designation: null,
+		phoneNo: null
 	})
 
 	const handleChange = e => {
@@ -365,7 +365,7 @@ const AboutYourself = () => {
 				<button
 					onClick={() => nextPage()}
 					style={{
-						background: '#04a777'
+						background: isValid(errors) ? '#04a777' : '#89e4c9'
 					}}>
 					Next
 				</button>

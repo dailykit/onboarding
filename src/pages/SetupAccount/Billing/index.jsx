@@ -9,6 +9,7 @@ import { ExtMain, ExtendField } from './styles'
 
 // Utils
 import validate from '../../../validators/validate'
+import isValid from '../../../validators/isValid'
 
 const Billing = props => {
 	const { state, dispatch } = React.useContext(context)
@@ -26,16 +27,15 @@ const Billing = props => {
 	})
 
 	const [errors, setErrors] = React.useState({
-		cardNo: '',
-		expiry: '',
-		cvv: '',
-		cardName: '',
-		address: '',
-		city: '',
-		zip: '',
-		name: '',
-		phoneCode: '',
-		phoneNo: ''
+		cardNo: null,
+		expiry: null,
+		cvv: null,
+		cardName: null,
+		address: null,
+		city: null,
+		zip: null,
+		name: null,
+		phoneNo: null
 	})
 
 	const handleChange = e => {
@@ -452,7 +452,7 @@ const Billing = props => {
 				<button
 					onClick={() => checkout()}
 					style={{
-						background: '#04a777'
+						background: isValid(errors) ? '#04a777' : '#89e4c9'
 					}}>
 					Checkout
 				</button>
