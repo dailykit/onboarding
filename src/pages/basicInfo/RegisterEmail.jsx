@@ -15,15 +15,51 @@ const RegisterEmail = () => {
 		email: state.user_data.email,
 		password: state.user_data.password
 	})
-	const [errors, setErrors] = React.useState({ email: '', password: '' })
+	const [password2, setPassword2] = React.useState('')
+
+	const [errors, setErrors] = React.useState({
+		email: '',
+		password: '',
+		password2: ''
+	})
 
 	const handleChange = e => {
 		const { name, value } = e.target
+		if (name === 'password') {
+			if (password2 !== value) {
+				setErrors(errors => ({
+					...errors,
+					password2: 'Passwords do not match'
+				}))
+			} else {
+				setErrors(errors => ({
+					...errors,
+					password2: ''
+				}))
+			}
+		}
+
 		setForm(form => ({
 			...form,
 			[name]: value
 		}))
 		validate(value, name, 'form1', setErrors)
+	}
+
+	const confirmPassword = e => {
+		const { value } = e.target
+		setPassword2(value)
+		if (form.password !== value) {
+			return setErrors(errors => ({
+				...errors,
+				password2: 'Passwords do not match'
+			}))
+		} else {
+			return setErrors(errors => ({
+				...errors,
+				password2: ''
+			}))
+		}
 	}
 
 	const nextPage = () => {
@@ -67,6 +103,20 @@ const RegisterEmail = () => {
 							<Label htmlFor="password">Password</Label>
 						</Field>
 						{errors.password && <Error>{errors.password}</Error>}
+						<Field>
+							<input
+								type="password"
+								id="password2"
+								name="password2"
+								required
+								value={password2}
+								onChange={e => confirmPassword(e)}
+							/>
+							<Label htmlFor="password2">
+								Password Confirmation
+							</Label>
+						</Field>
+						{errors.password2 && <Error>{errors.password2}</Error>}
 						<div>
 							<input type="checkbox" id="terms" />
 							<label htmlFor="terms" id="terms__label">
