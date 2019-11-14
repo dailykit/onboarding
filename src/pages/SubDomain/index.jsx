@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 // Style Components
 import { Field, Label } from '../styles'
@@ -29,7 +30,9 @@ const SubDomain = () => {
 						</div>
 						<span>dailykit.org</span>
 					</Field>
-					<button>Save</button>
+					<Link to="/installation">
+						<button>Save</button>
+					</Link>
 				</ExtForm>
 			</div>
 		</ExtWrapper>

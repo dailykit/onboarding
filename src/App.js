@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 // State
-import { context, state as initialState, reducers } from './state'
+import { context as Context, state as initialState, reducers } from './state'
 
 // Components
 import { Layout } from './components'
@@ -12,6 +12,7 @@ import { Layout } from './components'
 import {
 	Register,
 	SubDomain,
+	Installation,
 	RegisterEmail,
 	AboutCompany,
 	AboutYourself,
@@ -74,23 +75,32 @@ const App = () => {
 		<>
 			<GlobalStyle />
 			<ThemeProvider theme={theme}>
-				<Router>
-					<Switch>
-						<Route exact path="/" component={Register} />
-						<Route
-							exact
-							path="/register"
-							render={props => (
-								<context.Provider value={{ state, dispatch }}>
+				<Context.Provider value={{ state, dispatch }}>
+					<Router>
+						<Switch>
+							<Route exact path="/" component={Register} />
+							<Route
+								exact
+								path="/register"
+								render={props => (
 									<Layout {...props}>
 										{StepToRender(props)}
 									</Layout>
-								</context.Provider>
-							)}
-						/>
-						<Route exact path="/subdomain" component={SubDomain} />
-					</Switch>
-				</Router>
+								)}
+							/>
+							<Route
+								exact
+								path="/subdomain"
+								component={SubDomain}
+							/>
+							<Route
+								exact
+								path="/installation"
+								component={Installation}
+							/>
+						</Switch>
+					</Router>
+				</Context.Provider>
 			</ThemeProvider>
 		</>
 	)

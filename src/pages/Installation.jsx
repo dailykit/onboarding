@@ -1,0 +1,121 @@
+import React from 'react'
+import styled, { css, keyframes } from 'styled-components'
+
+const dots = keyframes`
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(0.8);
+  }
+  `
+
+const DotScale = ({ color, duration, size, dotSize }) => {
+	const Spinner = styled.div`
+		margin: 0 auto;
+		position: relative;
+		width: ${size};
+		height: ${size / 2};
+		text-align: center;
+	`
+
+	const DefaultDot = styled.div`
+		width: ${props => props.dotSize};
+		height: ${props => props.dotSize};
+		border-radius: 100%;
+		display: inline-block;
+		background-color: ${color};
+		animation: ${dots} 1.4s infinite ease-in-out both;
+		animation-duration: ${props =>
+			props.duration ? props.duration : '1.4s'};
+	`
+
+	const Dot1 = styled(DefaultDot)`
+		animation-delay: -0.32s;
+	`
+
+	const Dot2 = styled(DefaultDot)`
+		animation-delay: -0.16s;
+	`
+
+	return (
+		<Spinner size={size}>
+			<Dot1 color={color} duration={duration} dotSize={dotSize} />
+			<Dot2 color={color} duration={duration} dotSize={dotSize} />
+		</Spinner>
+	)
+}
+
+const Installation = () => {
+	React.useEffect(() => {
+		const URL = process.env.GET_TOKEN_URL
+		const AUTH = `Basic ${window.btoa(
+			`${process.env.USERNAME}:${process.env.PASSWORD}`
+		)}`
+		fetch(URL, {
+			method: 'POST',
+			headers: {
+				Authorization: AUTH,
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				grant_type: 'client_credentials'
+			})
+		})
+			.then(console.log)
+			.catch(console.log)
+	}, [])
+	return (
+		<Wrapper>
+			<div>
+				<DotScale
+					duration="2s"
+					color="#04A777"
+					dotSize="16px"
+					size="32px"
+				/>
+				<h1>Great! you are one step away from your DailyKit</h1>
+				<span>
+					Redirecting you to installation guide page. <br /> If it
+					doesn't open, <a href="/redirect">click here</a>
+				</span>
+			</div>
+		</Wrapper>
+	)
+}
+
+export default Installation
+
+const Wrapper = styled.div(
+	({ theme: { basePt, colors } }) => css`
+		width: 100%;
+		height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		> div {
+			text-align: center;
+			max-width: ${basePt * 90}px;
+			width: calc(100% - ${basePt * 5}px);
+			h1 {
+				font-weight: 300;
+				line-height: ${basePt * 8}px;
+				font-size: ${basePt * 4}px;
+				color: ${colors.darkText};
+			}
+			span {
+				font-weight: 400;
+				font-style: italic;
+				line-height: ${basePt * 4}px;
+				font-size: ${basePt * 2}px;
+				color: ${colors.grayText};
+				a {
+					text-decoration: none;
+					color: ${colors.active};
+				}
+			}
+		}
+	`
+)
