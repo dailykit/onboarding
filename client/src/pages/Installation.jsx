@@ -50,15 +50,15 @@ const DotScale = ({ color, duration, size, dotSize }) => {
 
 const Installation = () => {
 	React.useEffect(() => {
-		const URL = process.env.GET_TOKEN_URL
+		const URL = process.env.REACT_APP_GET_TOKEN_URL
 		const AUTH = `Basic ${window.btoa(
-			`${process.env.USERNAME}:${process.env.PASSWORD}`
+			`${process.env.REACT_APP_USERNAME}:${process.env.REACT_APP_PASSWORD}`
 		)}`
 		fetch(URL, {
 			method: 'POST',
 			headers: {
 				Authorization: AUTH,
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/x-www-form-urlencoded'
 			},
 			body: JSON.stringify({
 				grant_type: 'client_credentials'
