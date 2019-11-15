@@ -22,12 +22,18 @@ const UserSchema = new mongoose.Schema(
 			type: String,
 			required: true
 		},
-		phone: {
+		phoneCode: {
+			type: String,
+			required: true
+		},
+		phoneNo: {
 			type: String,
 			required: true
 		},
 		hosting: {
-			type: String,
+			type: {
+				type: String
+			},
 			plan: Number
 		},
 		onboard: Boolean,
@@ -70,7 +76,11 @@ const UserSchema = new mongoose.Schema(
 				type: String,
 				required: true
 			},
-			phone: {
+			phoneCode: {
+				type: String,
+				required: true
+			},
+			phoneNo: {
 				type: String,
 				required: true
 			}
