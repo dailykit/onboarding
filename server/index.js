@@ -1,19 +1,21 @@
-const express = require("express");
-const logger = require("morgan");
-const path = require("path");
+const express = require('express')
+const logger = require('morgan')
+const path = require('path')
+const bodyParser = require('body-parser')
 
-const app = express();
-app.use(logger("dev"));
+const UserRouter = require('./routes/user.router')
 
-app.use(express.static(path.join(__dirname, "../client/build")));
+const app = express()
+app.use(logger('dev'))
+app.use(bodyParser.json())
 
-app.use("/api", (res, req) => {
-  req.send({ message: "hello" });
-});
+app.use(express.static(path.join(__dirname, '../client/build')))
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "../client/build/index.html"));
-});
+app.use('/api/users', UserRouter)
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Listening on port ${PORT}!`));
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname + '../client/build/index.html'))
+})
+
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () => console.log(`Listening on port ${PORT}!`))
