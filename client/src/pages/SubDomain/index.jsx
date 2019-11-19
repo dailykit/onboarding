@@ -28,7 +28,7 @@ const SubDomain = () => {
 							/>
 							<Label htmlFor="name">Subdomain Name</Label>
 						</div>
-						<span>dailykit.org</span>
+						<span>.dailykit.org</span>
 					</Field>
 					<Link to="/installation">
 						<button>Save</button>

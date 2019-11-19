@@ -12,21 +12,8 @@ import { BulbEmoji } from '../../../assets/svgs'
 
 const CustomSupport = () => {
 	const { state, dispatch } = React.useContext(context)
-	const [required, setRequired] = React.useState(
-		state.user_data.custom.required
-	)
-	const [plan, setPlan] = React.useState(state.user_data.custom.plan)
 
-	const nextPage = () => {
-		dispatch({
-			type: 'SET_FORM6',
-			payload: {
-				required,
-				plan
-			}
-		})
-		dispatch({ type: 'NEXT_PAGE' })
-	}
+	const nextPage = () => dispatch({ type: 'NEXT_PAGE' })
 	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
 	return (
 		<Wrapper>
@@ -37,8 +24,16 @@ const CustomSupport = () => {
 						<input
 							type="checkbox"
 							id="support"
-							checked={required}
-							onChange={() => setRequired(!required)}
+							checked={state.user_data.custom.required}
+							onChange={() =>
+								dispatch({
+									type: 'SET_FORM6',
+									payload: {
+										required: !state.user_data.custom
+											.required
+									}
+								})
+							}
 						/>
 						<label htmlFor="support">
 							I have customization request
@@ -56,15 +51,20 @@ const CustomSupport = () => {
 						</p>
 					</Tip>
 					<h4>Choose your plan</h4>
-					<RadioWrapper checked={required}>
+					<RadioWrapper checked={state.user_data.custom.required}>
 						<Label>
 							<input
 								type="radio"
 								name="plan"
 								id="first"
-								disabled={!required}
-								checked={plan === 135}
-								onChange={() => setPlan(135)}
+								disabled={!state.user_data.custom.required}
+								checked={state.user_data.custom.plan === 135}
+								onChange={() =>
+									dispatch({
+										type: 'SET_FORM6',
+										payload: { plan: 135 }
+									})
+								}
 							/>
 							<span htmlFor="first">
 								<span className="price">$135/hr</span>
@@ -78,9 +78,14 @@ const CustomSupport = () => {
 								type="radio"
 								name="plan"
 								id="second"
-								disabled={!required}
-								checked={plan === 150}
-								onChange={() => setPlan(150)}
+								disabled={!state.user_data.custom.required}
+								checked={state.user_data.custom.plan === 150}
+								onChange={() =>
+									dispatch({
+										type: 'SET_FORM6',
+										payload: { plan: 150 }
+									})
+								}
 							/>
 							<span htmlFor="self">
 								<span className="price">$150/hr</span>
@@ -94,9 +99,14 @@ const CustomSupport = () => {
 								type="radio"
 								name="plan"
 								id="third"
-								disabled={!required}
-								checked={plan === 100}
-								onChange={() => setPlan(100)}
+								disabled={!state.user_data.custom.required}
+								checked={state.user_data.custom.plan === 100}
+								onChange={() =>
+									dispatch({
+										type: 'SET_FORM6',
+										payload: { plan: 100 }
+									})
+								}
 							/>
 							<span htmlFor="third">
 								<span className="price">$100/hr</span>

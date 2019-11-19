@@ -53,19 +53,19 @@ const App = () => {
 	const [state, dispatch] = React.useReducer(reducers, initialState)
 	const StepToRender = props => {
 		switch (state.step) {
-			case 0:
-				return <RegisterEmail />
 			case 1:
-				return <AboutCompany />
+				return <RegisterEmail />
 			case 2:
-				return <AboutYourself />
+				return <AboutCompany />
 			case 3:
-				return <Hosting />
+				return <AboutYourself />
 			case 4:
-				return <OnboardSupport />
+				return <Hosting />
 			case 5:
-				return <CustomSupport />
+				return <OnboardSupport />
 			case 6:
+				return <CustomSupport />
+			case 7:
 				return <Billing {...props} />
 			default:
 				return <RegisterEmail />

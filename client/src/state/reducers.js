@@ -13,12 +13,12 @@ const reducers = (state, action) => {
 		case NEXT_PAGE:
 			return {
 				...state,
-				step: state.step === 6 ? 6 : state.step + 1
+				step: state.step === 7 ? 7 : state.step + 1
 			}
 		case PREV_PAGE:
 			return {
 				...state,
-				step: state.step === 0 ? 0 : state.step - 1
+				step: state.step === 1 ? 1 : state.step - 1
 			}
 		case SET_FORM1:
 			return {
@@ -53,6 +53,7 @@ const reducers = (state, action) => {
 				user_data: {
 					...state.user_data,
 					hosting: {
+						...state.user_data.hosting,
 						...action.payload
 					}
 				}
@@ -62,7 +63,7 @@ const reducers = (state, action) => {
 				...state,
 				user_data: {
 					...state.user_data,
-					...action.payload
+					onboard: !state.user_data.onboard
 				}
 			}
 		case SET_FORM6:
@@ -71,6 +72,7 @@ const reducers = (state, action) => {
 				user_data: {
 					...state.user_data,
 					custom: {
+						...state.user_data.custom,
 						...action.payload
 					}
 				}

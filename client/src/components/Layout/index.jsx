@@ -13,22 +13,24 @@ const Layout = ({ children }) => {
 	const { state } = React.useContext(context)
 
 	const evalHeightFirst = step => {
-		if (step === 0) {
+		if (step === 1) {
 			return 26
-		} else if (step === 1) {
+		} else if (step === 2) {
 			return 52
-		} else if (step >= 2) {
+		} else if (step === 3) {
 			return 77
+		} else if (step > 3) {
+			return 1
 		}
 	}
 	const evalHeightSecond = step => {
-		if (step === 3) {
+		if (step === 4) {
 			return 22
-		} else if (step === 4) {
-			return 41
 		} else if (step === 5) {
+			return 41
+		} else if (step === 6) {
 			return 62
-		} else if (step >= 6) {
+		} else if (step === 7) {
 			return 83
 		}
 	}
@@ -51,11 +53,11 @@ const Layout = ({ children }) => {
 			: 0
 
 		switch (state.step) {
-			case 3:
-				return hosting
 			case 4:
-				return hosting + onboard
+				return hosting
 			case 5:
+				return hosting + onboard
+			case 6:
 				return hosting + onboard + custom
 			default:
 				return hosting + onboard + custom
@@ -63,7 +65,7 @@ const Layout = ({ children }) => {
 	}
 
 	const isStepActive = start => {
-		const steps = Array.from(new Array(7 - start).keys(), i => i + start)
+		const steps = Array.from(new Array(8 - start).keys(), i => i + start)
 		return steps.includes(state.step) ? 'active' : ''
 	}
 
@@ -75,71 +77,75 @@ const Layout = ({ children }) => {
 				</span>
 				<h1>Basic Information</h1>
 			</Header>
-			<Main>{children}</Main>
+			<Main step={state.step}>{children}</Main>
 			<Aside>
-				<Stage height={evalHeightFirst(state.step)}>
+				<Stage height1={evalHeightFirst(state.step)}>
 					Basic Information
-					<li className={isStepActive(0)}>
-						Register with your work email
-					</li>
-					<li className={isStepActive(1)}>
-						Tell us about your company
-					</li>
-					<li className={isStepActive(2)}>Tell us about yourself</li>
-				</Stage>
-				<Stage height={evalHeightSecond(state.step)}>
-					Setup your Account
-					{state.step > 2 && (
+					{state.step <= 3 && (
 						<>
-							<li className={isStepActive(3)}>Hosting</li>
-							<li className={isStepActive(4)}>
-								Onboarding Support
+							<li className={isStepActive(1)}>
+								Register with your work email
 							</li>
-							<li className={isStepActive(5)}>Custom Support</li>
+							<li className={isStepActive(2)}>
+								Tell us about your company
+							</li>
+							<li className={isStepActive(3)}>
+								Tell us about yourself
+							</li>
+						</>
+					)}
+				</Stage>
+				<Stage height2={evalHeightSecond(state.step)}>
+					Setup your Account
+					{state.step > 3 && (
+						<>
+							<li className={isStepActive(4)}>
+								<span>
+									Hosting({state.user_data.hosting.type})
+								</span>
+								<span className="price">
+									$
+									{state.user_data.hosting.type === 'cloud'
+										? state.user_data.hosting.plan
+										: 0}
+								</span>
+							</li>
+							<li className={isStepActive(5)}>
+								<span>Onboarding Support</span>
+								{state.step > 4 && (
+									<span className="price">
+										${state.user_data.onboard ? 1000 : 0}
+									</span>
+								)}
+							</li>
 							<li className={isStepActive(6)}>
+								<span>
+									Custom Support
+									{state.step > 5 &&
+										(state.user_data.custom.plan === 135
+											? '(x50hrs)'
+											: state.user_data.custom.plan ===
+											  150
+											? '(x10hrs)'
+											: '(x100hrs)')}
+								</span>
+								{state.step > 5 && (
+									<span className="price">
+										$
+										{state.user_data.custom.required
+											? state.user_data.custom.plan
+											: 0}
+									</span>
+								)}
+							</li>
+							<li className={isStepActive(7)}>
 								Billing Information
 							</li>
 						</>
 					)}
 				</Stage>
-				{state.step > 2 && (
+				{state.step > 3 && (
 					<Cart>
-						<div>
-							<span>Hosting</span>
-							<span>
-								$
-								{state.user_data.hosting.type === 'cloud'
-									? state.user_data.hosting.plan
-									: 0}
-							</span>
-						</div>
-						{state.step > 3 && (
-							<div>
-								<span>Onboarding Support</span>
-								<span>
-									${state.user_data.onboard ? 1000 : 0}
-								</span>
-							</div>
-						)}
-						{state.step > 4 && (
-							<div>
-								<span>
-									Custom Support(
-									{state.user_data.custom.plan === 135
-										? 'x50hrs'
-										: state.user_data.custom.plan === 150
-										? 'x10hrs'
-										: 'x100hrs'}
-									)
-								</span>
-								<span>
-									$
-									{state.user_data.custom.required
-										? state.user_data.custom.plan
-										: 0}
-								</span>
-							</div>
-						)}
 						<div>
 							<span>Payable Now</span>
 							<span>${evalTotal()}</span>

@@ -12,19 +12,8 @@ import { BulbEmoji } from '../../../assets/svgs'
 
 const Hosting = () => {
 	const { state, dispatch } = React.useContext(context)
-	const [type, setType] = React.useState(state.user_data.hosting.type)
-	const [plan, setPlan] = React.useState(state.user_data.hosting.plan)
 
-	const nextPage = () => {
-		dispatch({
-			type: 'SET_FORM4',
-			payload: {
-				type,
-				plan
-			}
-		})
-		dispatch({ type: 'NEXT_PAGE' })
-	}
+	const nextPage = () => dispatch({ type: 'NEXT_PAGE' })
 	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
 
 	return (
@@ -38,8 +27,17 @@ const Hosting = () => {
 								type="radio"
 								name="hosting"
 								id="cloud"
-								checked={type === 'cloud'}
-								onChange={e => setType('cloud')}
+								checked={
+									state.user_data.hosting.type === 'cloud'
+								}
+								onChange={() =>
+									dispatch({
+										type: 'SET_FORM4',
+										payload: {
+											type: 'cloud'
+										}
+									})
+								}
 							/>
 							<span htmlFor="cloud">Cloud Hosting</span>
 						</Label>
@@ -48,13 +46,22 @@ const Hosting = () => {
 								type="radio"
 								name="hosting"
 								id="self"
-								checked={type === 'self'}
-								onChange={e => setType('self')}
+								checked={
+									state.user_data.hosting.type === 'self'
+								}
+								onChange={() =>
+									dispatch({
+										type: 'SET_FORM4',
+										payload: {
+											type: 'self'
+										}
+									})
+								}
 							/>
 							<span htmlFor="self">Self Hosting</span>
 						</Label>
 					</RadioWrapper>
-					{type === 'cloud' && (
+					{state.user_data.hosting.type === 'cloud' && (
 						<>
 							<h4>
 								Choose your Plan{' '}
@@ -66,8 +73,17 @@ const Hosting = () => {
 										type="radio"
 										name="plan"
 										id="100"
-										checked={plan === 100}
-										onChange={() => setPlan(100)}
+										checked={
+											state.user_data.hosting.plan === 100
+										}
+										onChange={() =>
+											dispatch({
+												type: 'SET_FORM4',
+												payload: {
+													plan: 100
+												}
+											})
+										}
 									/>
 									<span htmlFor="100">$100/mo</span>
 								</Label>
@@ -76,15 +92,25 @@ const Hosting = () => {
 										type="radio"
 										name="plan"
 										cloud="1000"
-										checked={plan === 1000}
-										onChange={() => setPlan(1000)}
+										checked={
+											state.user_data.hosting.plan ===
+											1000
+										}
+										onChange={() =>
+											dispatch({
+												type: 'SET_FORM4',
+												payload: {
+													plan: 1000
+												}
+											})
+										}
 									/>
 									<span htmlFor="1000">$1000/yr</span>
 								</Label>
 							</RadioWrapper>
 						</>
 					)}
-					{type === 'self' && (
+					{state.user_data.hosting.type === 'self' && (
 						<div>
 							<Tip>
 								<span>

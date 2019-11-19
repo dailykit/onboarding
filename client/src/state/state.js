@@ -1,5 +1,5 @@
 const state = {
-	step: 0,
+	step: 1,
 	user_data: {
 		email: '',
 		password: '',

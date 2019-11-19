@@ -12,17 +12,8 @@ import { BulbEmoji } from '../../../assets/svgs'
 
 const OnboardSupport = () => {
 	const { state, dispatch } = React.useContext(context)
-	const [onboard, setOnboard] = React.useState(state.user_data.onboard)
 
-	const nextPage = () => {
-		dispatch({
-			type: 'SET_FORM5',
-			payload: {
-				onboard
-			}
-		})
-		dispatch({ type: 'NEXT_PAGE' })
-	}
+	const nextPage = () => dispatch({ type: 'NEXT_PAGE' })
 	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
 
 	return (
@@ -34,8 +25,8 @@ const OnboardSupport = () => {
 						<input
 							type="checkbox"
 							id="support"
-							checked={onboard}
-							onChange={e => setOnboard(!onboard)}
+							checked={state.user_data.onboard}
+							onChange={e => dispatch({ type: 'SET_FORM5' })}
 						/>
 						<label htmlFor="support">
 							I want installation and onboard support
