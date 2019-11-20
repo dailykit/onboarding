@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled, { css, keyframes } from 'styled-components'
+
+// State
+import { context } from '../state'
 
 const dots = keyframes`
   0%,
@@ -49,6 +52,7 @@ const DotScale = ({ color, duration, size, dotSize }) => {
 }
 
 const Installation = () => {
+	const { state } = useContext(context)
 	React.useEffect(() => {
 		const URL = process.env.REACT_APP_GET_TOKEN_URL
 		const AUTH = `Basic ${window.btoa(
@@ -58,13 +62,88 @@ const Installation = () => {
 			method: 'POST',
 			headers: {
 				Authorization: AUTH,
-				'Content-Type': 'application/x-www-form-urlencoded'
+				'Content-Type': 'application/x-www-form-urlencoded',
+				Accept: 'application/json'
 			},
-			body: JSON.stringify({
-				grant_type: 'client_credentials'
-			})
+			body: 'grant_type=client_credentials'
 		})
-			.then(console.log)
+			.then(res => res.json())
+			.then(({ access_token }) => {
+				fetch(process.env.REACT_APP_CREATE_REALM_URL, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${access_token}`
+					},
+					body: JSON.stringify({
+						realm: state.realmName,
+						displayName: state.realmDisplayName,
+						enabled: true,
+						sslRequired: 'external',
+						registrationAllowed: true,
+						registrationEmailAsUsername: true,
+						rememberMe: false,
+						verifyEmail: false,
+						loginWithEmailAllowed: true,
+						duplicateEmailsAllowed: false,
+						resetPasswordAllowed: false,
+						editUsernameAllowed: false,
+						bruteForceProtected: false,
+						permanentLockout: false,
+						maxFailureWaitSeconds: 900,
+						minimumQuickLoginWaitSeconds: 60,
+						waitIncrementSeconds: 60,
+						quickLoginCheckMilliSeconds: 1000,
+						maxDeltaTimeSeconds: 43200,
+						failureFactor: 30,
+						defaultRoles: ['offline_access', 'uma_authorization'],
+						requiredCredentials: ['password'],
+						otpPolicyType: 'totp',
+						otpPolicyAlgorithm: 'HmacSHA1',
+						otpPolicyInitialCounter: 0,
+						otpPolicyDigits: 6,
+						otpPolicyLookAheadWindow: 1,
+						otpPolicyPeriod: 30,
+						otpSupportedApplications: [
+							'FreeOTP',
+							'Google Authenticator'
+						],
+						scopeMappings: [
+							{
+								clientScope: 'offline_access',
+								roles: ['offline_access']
+							}
+						],
+						browserSecurityHeaders: {
+							contentSecurityPolicyReportOnly: '',
+							xContentTypeOptions: 'nosniff',
+							xRobotsTag: 'none',
+							xFrameOptions: 'SAMEORIGIN',
+							xXSSProtection: '1; mode=block',
+							contentSecurityPolicy:
+								"frame-src 'self'; frame-ancestors 'self'; object-src 'none';",
+							strictTransportSecurity:
+								'max-age=31536000; includeSubDomains'
+						},
+						eventsEnabled: false,
+						eventsListeners: ['jboss-logging'],
+						enabledEventTypes: [],
+						adminEventsEnabled: false,
+						adminEventsDetailsEnabled: false,
+						internationalizationEnabled: false,
+						supportedLocales: [],
+						browserFlow: 'browser',
+						registrationFlow: 'registration',
+						directGrantFlow: 'direct grant',
+						resetCredentialsFlow: 'reset credentials',
+						clientAuthenticationFlow: 'clients',
+						dockerAuthenticationFlow: 'docker auth',
+						userManagedAccessAllowed: false
+					})
+				})
+					.then(res => res.json())
+					.catch(console.log)
+			})
 			.catch(console.log)
 	}, [])
 	return (
