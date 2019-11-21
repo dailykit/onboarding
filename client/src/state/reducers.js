@@ -7,6 +7,7 @@ const SET_FORM4 = 'SET_FORM4'
 const SET_FORM5 = 'SET_FORM5'
 const SET_FORM6 = 'SET_FORM6'
 const SET_FORM7 = 'SET_FORM7'
+const SET_SUBDOMAIN = 'SET_SUBDOMAIN'
 
 const reducers = (state, action) => {
 	switch (action.type) {
@@ -96,6 +97,14 @@ const reducers = (state, action) => {
 						phoneCode: action.payload.phoneCode,
 						phoneNo: action.payload.cardNo
 					}
+				}
+			}
+		case SET_SUBDOMAIN:
+			return {
+				...state,
+				user_data: {
+					...state.user_data,
+					subdomain: action.payload
 				}
 			}
 		default:

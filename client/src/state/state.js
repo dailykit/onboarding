@@ -1,6 +1,7 @@
 const state = {
 	step: 1,
 	user_data: {
+		subdomain: '',
 		email: '',
 		password: '',
 		company: '',

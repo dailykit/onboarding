@@ -21,6 +21,7 @@ import {
 	CustomSupport,
 	Billing
 } from './pages'
+import ConfirmEmail from './pages/ConfirmEmail'
 
 // Global Styles
 const GlobalStyle = createGlobalStyle`
@@ -92,6 +93,11 @@ const App = () => {
 								exact
 								path="/subdomain"
 								component={SubDomain}
+							/>
+							<Route
+								exact
+								path="/confirm-email"
+								component={ConfirmEmail}
 							/>
 							<Route
 								exact

@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+
+// State
+import { context } from '../../state'
 
 // Style Components
 import { Field, Label } from '../styles'
 import { ExtWrapper, ExtForm } from './styles'
 
 const SubDomain = () => {
+	const { dispatch } = useContext(context)
 	const [name, setName] = React.useState('')
 	return (
 		<ExtWrapper>
@@ -30,8 +34,16 @@ const SubDomain = () => {
 						</div>
 						<span>.dailykit.org</span>
 					</Field>
-					<Link to="/installation">
-						<button>Save</button>
+					<Link to="/confirm-email">
+						<button
+							onClick={() =>
+								dispatch({
+									type: 'SET_SUBDOMAIN',
+									payload: `${name}.dailykit.org`
+								})
+							}>
+							Save
+						</button>
 					</Link>
 				</ExtForm>
 			</div>
