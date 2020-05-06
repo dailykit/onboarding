@@ -4,11 +4,7 @@ import React from 'react'
 import { context } from '../../state'
 
 // Styled Components
-import { Footer, Main, Wrapper, Field, Label, Form, Error } from '../styles'
-
-// Utils
-import validate from '../../validators/validate'
-import isValid from '../../validators/isValid'
+import { Footer, Main, Wrapper, Field, Label, Form } from '../styles'
 
 const AboutCompany = () => {
 	const { state, dispatch } = React.useContext(context)
@@ -16,18 +12,12 @@ const AboutCompany = () => {
 		company: state.user_data.company,
 		employeesCount: state.user_data.employeesCount
 	})
-
-	const [errors, setErrors] = React.useState({
-		company: null
-	})
-
 	const handleChange = e => {
 		const { name, value } = e.target
 		setForm(form => ({
 			...form,
 			[name]: value
 		}))
-		validate(value, name, 'form2', setErrors)
 	}
 
 	const nextPage = () => {
@@ -39,7 +29,15 @@ const AboutCompany = () => {
 		})
 		dispatch({ type: 'NEXT_PAGE' })
 	}
-	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
+	const prevPage = () => {
+		dispatch({
+			type: 'SET_FORM2',
+			payload: {
+				...form
+			}
+		})
+		dispatch({ type: 'PREV_PAGE' })
+	}
 
 	return (
 		<Wrapper>
@@ -58,7 +56,6 @@ const AboutCompany = () => {
 							/>
 							<Label htmlFor="company">Company Name</Label>
 						</Field>
-						{errors.company && <Error>{errors.company}</Error>}
 						<Field>
 							<select
 								name="employeesCount"
@@ -81,13 +78,7 @@ const AboutCompany = () => {
 			</Main>
 			<Footer>
 				<button onClick={() => prevPage()}>Back</button>
-				<button
-					onClick={() => nextPage()}
-					style={{
-						background: isValid(errors) ? '#04a777' : '#89e4c9'
-					}}>
-					Next
-				</button>
+				<button onClick={() => nextPage()}>Next</button>
 			</Footer>
 		</Wrapper>
 	)

@@ -4,12 +4,8 @@ import React from 'react'
 import { context } from '../../../state'
 
 // Styled Components
-import { Wrapper, Footer, Form, Field, Label, Error } from '../../styles'
+import { Wrapper, Footer, Form, Field, Label } from '../../styles'
 import { ExtMain, ExtendField } from './styles'
-
-// Utils
-import validate from '../../../validators/validate'
-import isValid from '../../../validators/isValid'
 
 const Billing = props => {
 	const { state, dispatch } = React.useContext(context)
@@ -26,25 +22,12 @@ const Billing = props => {
 		phoneNo: state.user_data.billing_address.phoneNo
 	})
 
-	const [errors, setErrors] = React.useState({
-		cardNo: null,
-		expiry: null,
-		cvv: null,
-		cardName: null,
-		address: null,
-		city: null,
-		zip: null,
-		name: null,
-		phoneNo: null
-	})
-
 	const handleChange = e => {
 		const { name, value } = e.target
 		setForm(form => ({
 			...form,
 			[name]: value
 		}))
-		validate(value, name, 'form4', setErrors)
 	}
 
 	const checkout = () => {
@@ -57,7 +40,15 @@ const Billing = props => {
 		props.history.push('/subdomain')
 	}
 
-	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
+	const prevPage = () => {
+		dispatch({
+			type: 'SET_FORM7',
+			payload: {
+				...form
+			}
+		})
+		dispatch({ type: 'PREV_PAGE' })
+	}
 
 	const codes = [
 		'+93',
@@ -316,7 +307,6 @@ const Billing = props => {
 							/>
 							<Label htmlFor="cardNo">Card No.</Label>
 						</Field>
-						{errors.cardNo && <Error>{errors.cardNo}</Error>}
 						<ExtendField>
 							<div>
 								<input
@@ -331,7 +321,6 @@ const Billing = props => {
 									Expiry Date(dd/mm/yyyy)
 								</Label>
 							</div>
-							{errors.expiry && <Error>{errors.expiry}</Error>}
 							<div>
 								<input
 									type="text"
@@ -343,7 +332,6 @@ const Billing = props => {
 								/>
 								<Label htmlFor="cvv">CVV</Label>
 							</div>
-							{errors.cvv && <Error>{errors.cvv}</Error>}
 						</ExtendField>
 						<Field>
 							<input
@@ -356,7 +344,6 @@ const Billing = props => {
 							/>
 							<Label htmlFor="cardName">Name on Card</Label>
 						</Field>
-						{errors.cardName && <Error>{errors.cardName}</Error>}
 					</Form>
 					<h2 style={{ marginTop: '16px' }}>Billing Address</h2>
 					<Form>
@@ -371,7 +358,6 @@ const Billing = props => {
 							/>
 							<Label htmlFor="address">Enter your Address</Label>
 						</Field>
-						{errors.address && <Error>{errors.address}</Error>}
 						<ExtendField>
 							<div>
 								<input
@@ -384,7 +370,6 @@ const Billing = props => {
 								/>
 								<Label htmlFor="city">City</Label>
 							</div>
-							{errors.city && <Error>{errors.city}</Error>}
 							<div>
 								<input
 									type="number"
@@ -396,7 +381,6 @@ const Billing = props => {
 								/>
 								<Label htmlFor="zip">Zip Code</Label>
 							</div>
-							{errors.zip && <Error>{errors.zip}</Error>}
 						</ExtendField>
 						<Field>
 							<input
@@ -409,7 +393,6 @@ const Billing = props => {
 							/>
 							<Label htmlFor="name">Name</Label>
 						</Field>
-						{errors.name && <Error>{errors.name}</Error>}
 						<Field style={{ display: 'flex' }}>
 							<select
 								name="phoneCode"
@@ -442,20 +425,13 @@ const Billing = props => {
 									Your Phone Number
 								</Label>
 							</div>
-							{errors.phoneNo && <Error>{errors.phoneNo}</Error>}
 						</Field>
 					</Form>
 				</div>
 			</ExtMain>
 			<Footer>
 				<button onClick={() => prevPage()}>Back</button>
-				<button
-					onClick={() => checkout()}
-					style={{
-						background: isValid(errors) ? '#04a777' : '#89e4c9'
-					}}>
-					Checkout
-				</button>
+				<button onClick={() => checkout()}>Checkout</button>
 			</Footer>
 		</Wrapper>
 	)

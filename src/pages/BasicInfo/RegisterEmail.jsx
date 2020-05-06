@@ -4,11 +4,7 @@ import React from 'react'
 import { context } from '../../state'
 
 // Styled Components
-import { Footer, Main, Wrapper, Field, Label, Form, Error } from '../styles'
-
-// Utils
-import validate from '../../validators/validate'
-import isValid from '../../validators/isValid'
+import { Footer, Main, Wrapper, Field, Label, Form } from '../styles'
 
 const RegisterEmail = () => {
 	const { state, dispatch } = React.useContext(context)
@@ -16,51 +12,14 @@ const RegisterEmail = () => {
 		email: state.user_data.email,
 		password: state.user_data.password
 	})
-	const [password2, setPassword2] = React.useState('')
-
-	const [errors, setErrors] = React.useState({
-		email: null,
-		password: null,
-		password2: null
-	})
 
 	const handleChange = e => {
 		const { name, value } = e.target
-		if (name === 'password') {
-			if (password2 !== value) {
-				setErrors(errors => ({
-					...errors,
-					password2: 'Passwords do not match'
-				}))
-			} else {
-				setErrors(errors => ({
-					...errors,
-					password2: ''
-				}))
-			}
-		}
 
 		setForm(form => ({
 			...form,
 			[name]: value
 		}))
-		validate(value, name, 'form1', setErrors)
-	}
-
-	const confirmPassword = e => {
-		const { value } = e.target
-		setPassword2(value)
-		if (form.password !== value) {
-			return setErrors(errors => ({
-				...errors,
-				password2: 'Passwords do not match'
-			}))
-		} else {
-			return setErrors(errors => ({
-				...errors,
-				password2: ''
-			}))
-		}
 	}
 
 	const nextPage = () => {
@@ -72,7 +31,15 @@ const RegisterEmail = () => {
 		})
 		dispatch({ type: 'NEXT_PAGE' })
 	}
-	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
+	const prevPage = () => {
+		dispatch({
+			type: 'SET_FORM1',
+			payload: {
+				...form
+			}
+		})
+		dispatch({ type: 'PREV_PAGE' })
+	}
 
 	return (
 		<Wrapper>
@@ -91,7 +58,6 @@ const RegisterEmail = () => {
 							/>
 							<Label htmlFor="email">Email</Label>
 						</Field>
-						{errors.email && <Error>{errors.email}</Error>}
 						<Field>
 							<input
 								type="password"
@@ -103,21 +69,6 @@ const RegisterEmail = () => {
 							/>
 							<Label htmlFor="password">Password</Label>
 						</Field>
-						{errors.password && <Error>{errors.password}</Error>}
-						<Field>
-							<input
-								type="password"
-								id="password2"
-								name="password2"
-								required
-								value={password2}
-								onChange={e => confirmPassword(e)}
-							/>
-							<Label htmlFor="password2">
-								Password Confirmation
-							</Label>
-						</Field>
-						{errors.password2 && <Error>{errors.password2}</Error>}
 						<div>
 							<input type="checkbox" id="terms" />
 							<label htmlFor="terms" id="terms__label">
@@ -148,14 +99,7 @@ const RegisterEmail = () => {
 			</Main>
 			<Footer>
 				<button onClick={() => prevPage()}>Back</button>
-				<button
-					onClick={() => nextPage()}
-					disabled={!isValid(errors)}
-					style={{
-						background: isValid(errors) ? '#04a777' : '#89e4c9'
-					}}>
-					Next
-				</button>
+				<button onClick={() => nextPage()}>Next</button>
 			</Footer>
 		</Wrapper>
 	)

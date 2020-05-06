@@ -4,11 +4,7 @@ import React from 'react'
 import { context } from '../../state'
 
 // Styled Components
-import { Footer, Main, Wrapper, Field, Label, Form, Error } from '../styles'
-
-// Utils
-import validate from '../../validators/validate'
-import isValid from '../../validators/isValid'
+import { Footer, Main, Wrapper, Field, Label, Form } from '../styles'
 
 const AboutYourself = () => {
 	const { state, dispatch } = React.useContext(context)
@@ -19,19 +15,12 @@ const AboutYourself = () => {
 		phoneNo: state.user_data.phoneNo
 	})
 
-	const [errors, setErrors] = React.useState({
-		name: null,
-		designation: null,
-		phoneNo: null
-	})
-
 	const handleChange = e => {
 		const { name, value } = e.target
 		setForm(form => ({
 			...form,
 			[name]: value
 		}))
-		validate(value, name, 'form3', setErrors)
 	}
 
 	const nextPage = () => {
@@ -43,7 +32,15 @@ const AboutYourself = () => {
 		})
 		dispatch({ type: 'NEXT_PAGE' })
 	}
-	const prevPage = () => dispatch({ type: 'PREV_PAGE' })
+	const prevPage = () => {
+		dispatch({
+			type: 'SET_FORM3',
+			payload: {
+				...form
+			}
+		})
+		dispatch({ type: 'PREV_PAGE' })
+	}
 
 	const codes = [
 		'+93',
@@ -302,7 +299,6 @@ const AboutYourself = () => {
 							/>
 							<Label htmlFor="name">Your Name</Label>
 						</Field>
-						{errors.name && <Error>{errors.name}</Error>}
 						<Field>
 							<input
 								type="text"
@@ -316,9 +312,6 @@ const AboutYourself = () => {
 								Your Designation
 							</Label>
 						</Field>
-						{errors.designation && (
-							<Error>{errors.designation}</Error>
-						)}
 						<Field style={{ display: 'flex' }}>
 							<select
 								name="phoneCode"
@@ -350,11 +343,6 @@ const AboutYourself = () => {
 									style={{ marginLeft: '16px' }}>
 									Your Phone Number
 								</Label>
-								{errors.phoneNo && (
-									<Error style={{ marginLeft: '16px' }}>
-										{errors.phoneNo}
-									</Error>
-								)}
 							</div>
 						</Field>
 					</Form>
@@ -362,13 +350,7 @@ const AboutYourself = () => {
 			</Main>
 			<Footer>
 				<button onClick={() => prevPage()}>Back</button>
-				<button
-					onClick={() => nextPage()}
-					style={{
-						background: isValid(errors) ? '#04a777' : '#89e4c9'
-					}}>
-					Next
-				</button>
+				<button onClick={() => nextPage()}>Next</button>
 			</Footer>
 		</Wrapper>
 	)
