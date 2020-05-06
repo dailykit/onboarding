@@ -1,17 +1,22 @@
 import React from 'react'
+import { useLazyQuery } from '@apollo/react-hooks'
 
 // State
 import { context } from '../../state'
 
+import { FETCH_ADMINS } from '../../graphql'
+
 // Styled Components
-import { Footer, Main, Wrapper, Field, Label, Form } from '../styles'
+import { Footer, Main, Wrapper, Field, Label, Form, Error } from '../styles'
 
 const RegisterEmail = () => {
+	const [fetchAdmins, { loading, data }] = useLazyQuery(FETCH_ADMINS)
 	const { state, dispatch } = React.useContext(context)
 	const [form, setForm] = React.useState({
 		email: state.user_data.email,
 		password: state.user_data.password
 	})
+	const [isEmailUnique, setIsEmailUnique] = React.useState(true)
 
 	const handleChange = e => {
 		const { name, value } = e.target
@@ -41,6 +46,28 @@ const RegisterEmail = () => {
 		dispatch({ type: 'PREV_PAGE' })
 	}
 
+	const validateEmail = async e => {
+		await fetchAdmins({
+			variables: {
+				where: {
+					email: {
+						_eq: e.target.value
+					}
+				}
+			}
+		})
+	}
+
+	React.useEffect(() => {
+		if (!loading && data) {
+			if (data.organizationAdmins.length > 0) {
+				setIsEmailUnique(false)
+			} else {
+				setIsEmailUnique(true)
+			}
+		}
+	}, [loading, data])
+
 	return (
 		<Wrapper>
 			<Main>
@@ -55,9 +82,13 @@ const RegisterEmail = () => {
 								required
 								value={form.email}
 								onChange={e => handleChange(e)}
+								onBlur={e => validateEmail(e)}
 							/>
 							<Label htmlFor="email">Email</Label>
 						</Field>
+						{!isEmailUnique && (
+							<Error>Email is not available!</Error>
+						)}
 						<Field>
 							<input
 								type="password"
@@ -99,7 +130,14 @@ const RegisterEmail = () => {
 			</Main>
 			<Footer>
 				<button onClick={() => prevPage()}>Back</button>
-				<button onClick={() => nextPage()}>Next</button>
+				<button
+					onClick={() => nextPage()}
+					disabled={isEmailUnique}
+					style={{
+						background: isEmailUnique ? '#04a777' : '#89e4c9'
+					}}>
+					Next
+				</button>
 			</Footer>
 		</Wrapper>
 	)
