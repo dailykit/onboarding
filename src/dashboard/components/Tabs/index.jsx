@@ -31,7 +31,7 @@ const Tabs = () => {
 								e.charCode === 32 &&
 								removeTab(e, { tab, index })
 							}>
-							<CloseIcon color="#000" size="20" />
+							<CloseIcon color="#fff" size="20" />
 						</div>
 					)}
 				</StyledTab>
