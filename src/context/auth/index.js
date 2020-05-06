@@ -21,11 +21,14 @@ export const AuthProvider = ({ children }) => {
 	const [isInitialized, setIsInitialized] = React.useState(false)
 
 	const initialize = async () => {
-		const authenticated = await keycloak.init({})
+		const authenticated = await keycloak.init({
+			onLoad: 'check-sso',
+			promiseType: 'native'
+		})
 		if (authenticated) {
 			setIsInitialized(true)
 			setIsAuthenticated(authenticated)
-			const profile = await keycloak.loadUserProfile()
+			const profile = await keycloak.loadUserInfo()
 			setUser(profile)
 		}
 	}
