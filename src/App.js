@@ -19,9 +19,10 @@ import {
 	Hosting,
 	OnboardSupport,
 	CustomSupport,
-	Billing
+	Billing,
+	ConfirmEmail
 } from './pages'
-import ConfirmEmail from './pages/ConfirmEmail'
+import Dashboard from './dashboard'
 
 const theme = {
 	basePt: 8,
@@ -61,6 +62,7 @@ const App = () => {
 				return <RegisterEmail />
 		}
 	}
+
 	return (
 		<>
 			<ThemeProvider theme={theme}>
@@ -91,6 +93,11 @@ const App = () => {
 								exact
 								path="/installation"
 								component={Installation}
+							/>
+							<Route
+								exact
+								path="/dashboard"
+								component={Dashboard}
 							/>
 						</Switch>
 					</Router>

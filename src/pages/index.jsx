@@ -1,6 +1,7 @@
 import Register from './Register'
 import SubDomain from './SubDomain/index'
 import Installation from './Installation'
+import ConfirmEmail from './ConfirmEmail'
 import { RegisterEmail, AboutCompany, AboutYourself } from './BasicInfo'
 import { Hosting, CustomSupport, OnboardSupport, Billing } from './SetupAccount'
 
@@ -14,5 +15,6 @@ export {
 	Hosting,
 	OnboardSupport,
 	CustomSupport,
-	Billing
+	Billing,
+	ConfirmEmail
 }

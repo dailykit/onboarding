@@ -37,7 +37,10 @@ export const AuthProvider = ({ children }) => {
 		initialize()
 	}, [])
 
-	const login = () => keycloak.login()
+	const login = path =>
+		keycloak.login({
+			redirectUri: path
+		})
 	const logout = () => keycloak.logout()
 
 	return (

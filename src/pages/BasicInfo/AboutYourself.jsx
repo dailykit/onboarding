@@ -56,7 +56,7 @@ const AboutYourself = () => {
 				}
 			}
 		})
-		login()
+		login(`${window.location.origin}/dashboard`)
 	}
 	const prevPage = () => {
 		dispatch({
