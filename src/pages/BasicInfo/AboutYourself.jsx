@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/react-hooks'
 
 // State
 import { context } from '../../state'
+import { useAuth } from '../../context/auth'
 
 // Mutations
 import { CREATE_ORG_WITH_ADMIN } from '../../graphql'
@@ -11,6 +12,7 @@ import { CREATE_ORG_WITH_ADMIN } from '../../graphql'
 import { Footer, Main, Wrapper, Field, Label, Form } from '../styles'
 
 const AboutYourself = () => {
+	const { login } = useAuth()
 	const [createOrgWithAdmin] = useMutation(CREATE_ORG_WITH_ADMIN)
 	const { state, dispatch } = React.useContext(context)
 	const [form, setForm] = React.useState({
@@ -29,7 +31,7 @@ const AboutYourself = () => {
 		}))
 	}
 
-	const nextPage = () => {
+	const nextPage = async () => {
 		dispatch({
 			type: 'SET_FORM3',
 			payload: {
@@ -37,7 +39,7 @@ const AboutYourself = () => {
 			}
 		})
 		const { email, password, company } = state.user_data
-		createOrgWithAdmin({
+		await createOrgWithAdmin({
 			variables: {
 				organizationName: company,
 				organizationAdmins: {
@@ -54,7 +56,7 @@ const AboutYourself = () => {
 				}
 			}
 		})
-		dispatch({ type: 'NEXT_PAGE' })
+		login()
 	}
 	const prevPage = () => {
 		dispatch({
@@ -385,7 +387,7 @@ const AboutYourself = () => {
 			</Main>
 			<Footer>
 				<button onClick={() => prevPage()}>Back</button>
-				<button onClick={() => nextPage()}>Next</button>
+				<button onClick={() => nextPage()}>Register</button>
 			</Footer>
 		</Wrapper>
 	)

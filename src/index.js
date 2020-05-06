@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
 
+import { AuthProvider } from './context/auth'
+
 import App from './App'
 import './global.css'
 
@@ -11,8 +13,10 @@ const client = new ApolloClient({
 })
 
 ReactDOM.render(
-	<ApolloProvider client={client}>
-		<App />
-	</ApolloProvider>,
+	<AuthProvider>
+		<ApolloProvider client={client}>
+			<App />
+		</ApolloProvider>
+	</AuthProvider>,
 	document.getElementById('root')
 )
