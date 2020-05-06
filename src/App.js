@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 
 // State
 import { context as Context, state as initialState, reducers } from './state'
@@ -22,17 +22,6 @@ import {
 	Billing
 } from './pages'
 import ConfirmEmail from './pages/ConfirmEmail'
-
-// Global Styles
-const GlobalStyle = createGlobalStyle`
-	@import url('https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i&display=swap');
-	* {
-		box-sizing: border-box;
-		margin: 0;
-		padding: 0;
-		font-family: 'Rubik', sans-serif;
-	}
-`
 
 const theme = {
 	basePt: 8,
@@ -74,7 +63,6 @@ const App = () => {
 	}
 	return (
 		<>
-			<GlobalStyle />
 			<ThemeProvider theme={theme}>
 				<Context.Provider value={{ state, dispatch }}>
 					<Router>
