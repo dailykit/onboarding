@@ -1,15 +1,21 @@
 import React from 'react'
+import { useMutation } from '@apollo/react-hooks'
 
 // State
 import { context } from '../../state'
+
+// Mutations
+import { CREATE_ORG_WITH_ADMIN } from '../../graphql'
 
 // Styled Components
 import { Footer, Main, Wrapper, Field, Label, Form } from '../styles'
 
 const AboutYourself = () => {
+	const [createOrgWithAdmin] = useMutation(CREATE_ORG_WITH_ADMIN)
 	const { state, dispatch } = React.useContext(context)
 	const [form, setForm] = React.useState({
-		name: state.user_data.name,
+		firstName: state.user_data.firstName,
+		lastName: state.user_data.lastName,
 		designation: state.user_data.designation,
 		phoneCode: state.user_data.phoneCode,
 		phoneNo: state.user_data.phoneNo
@@ -28,6 +34,24 @@ const AboutYourself = () => {
 			type: 'SET_FORM3',
 			payload: {
 				...form
+			}
+		})
+		const { email, password, company } = state.user_data
+		createOrgWithAdmin({
+			variables: {
+				organizationName: company,
+				organizationAdmins: {
+					data: [
+						{
+							email,
+							password,
+							lastName: form.lastName,
+							firstName: form.firstName,
+							designation: form.designation,
+							phoneNumber: `${form.phoneCode} ${form.phoneNo}`
+						}
+					]
+				}
 			}
 		})
 		dispatch({ type: 'NEXT_PAGE' })
@@ -291,13 +315,24 @@ const AboutYourself = () => {
 						<Field>
 							<input
 								type="text"
-								id="name"
-								name="name"
+								id="firstName"
+								name="firstName"
 								required
-								value={form.name}
+								value={form.firstName}
 								onChange={e => handleChange(e)}
 							/>
-							<Label htmlFor="name">Your Name</Label>
+							<Label htmlFor="firstName">First Name</Label>
+						</Field>
+						<Field>
+							<input
+								type="text"
+								id="lastName"
+								name="lastName"
+								required
+								value={form.lastName}
+								onChange={e => handleChange(e)}
+							/>
+							<Label htmlFor="lastName">Last Name</Label>
 						</Field>
 						<Field>
 							<input
