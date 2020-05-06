@@ -36,15 +36,6 @@ const RegisterEmail = () => {
 		})
 		dispatch({ type: 'NEXT_PAGE' })
 	}
-	const prevPage = () => {
-		dispatch({
-			type: 'SET_FORM1',
-			payload: {
-				...form
-			}
-		})
-		dispatch({ type: 'PREV_PAGE' })
-	}
 
 	const validateEmail = async e => {
 		await fetchAdmins({
@@ -60,10 +51,10 @@ const RegisterEmail = () => {
 
 	React.useEffect(() => {
 		if (!loading && data) {
-			if (data.organizationAdmins.length > 0) {
-				setIsEmailUnique(false)
-			} else {
+			if (data.organizationAdmins.length === 0) {
 				setIsEmailUnique(true)
+			} else {
+				setIsEmailUnique(false)
 			}
 		}
 	}, [loading, data])
@@ -100,44 +91,13 @@ const RegisterEmail = () => {
 							/>
 							<Label htmlFor="password">Password</Label>
 						</Field>
-						<div>
-							<input type="checkbox" id="terms" />
-							<label htmlFor="terms" id="terms__label">
-								I agree to{' '}
-								<a
-									href="/terms-and-conditions"
-									aria-labelledby="read about our terms and conditions"
-									title="Read about terms and conditions">
-									terms & conditions,
-								</a>{' '}
-								<a
-									href="/cancellation-policy"
-									aria-labelledby="read about our cancellation policy"
-									title="Read about our cancellation policy">
-									cancellation policy
-								</a>{' '}
-								and{' '}
-								<a
-									href="/privacy-policy"
-									aria-labelledby="read about privacy policy"
-									title="Read about privacy policy">
-									privacy policy.
-								</a>
-							</label>
-						</div>
 					</Form>
 				</div>
 			</Main>
 			<Footer>
-				<button onClick={() => prevPage()}>Back</button>
-				<button
-					onClick={() => nextPage()}
-					disabled={isEmailUnique}
-					style={{
-						background: isEmailUnique ? '#04a777' : '#89e4c9'
-					}}>
-					Next
-				</button>
+				{form.email && form.password && isEmailUnique && (
+					<button onClick={() => nextPage()}>Next</button>
+				)}
 			</Footer>
 		</Wrapper>
 	)
