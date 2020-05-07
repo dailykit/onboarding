@@ -95,6 +95,7 @@ const Layout = ({ children }) => {
 						</>
 					)}
 				</Stage>
+				{/*
 				<Stage height2={evalHeightSecond(state.step)}>
 					Setup your Account
 					{state.step > 3 && (
@@ -143,15 +144,16 @@ const Layout = ({ children }) => {
 							</li>
 						</>
 					)}
-				</Stage>
+            </Stage>
 				{state.step > 3 && (
-					<Cart>
+               <Cart>
 						<div>
 							<span>Payable Now</span>
 							<span>${evalTotal()}</span>
 						</div>
 					</Cart>
 				)}
+             */}
 			</Aside>
 		</Step>
 	)

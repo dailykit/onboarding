@@ -22,7 +22,6 @@ import {
 	Billing,
 	ConfirmEmail
 } from './pages'
-import Dashboard from './dashboard'
 
 const theme = {
 	basePt: 8,
@@ -93,11 +92,6 @@ const App = () => {
 								exact
 								path="/installation"
 								component={Installation}
-							/>
-							<Route
-								exact
-								path="/dashboard"
-								component={Dashboard}
 							/>
 						</Switch>
 					</Router>

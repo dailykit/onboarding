@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/react-hooks'
 
 // State
 import { context } from '../../state'
-import { useAuth } from '../../context/auth'
 
 // Mutations
 import { CREATE_ORG_WITH_ADMIN } from '../../graphql'
@@ -12,7 +11,6 @@ import { CREATE_ORG_WITH_ADMIN } from '../../graphql'
 import { Footer, Main, Wrapper, Field, Label, Form } from '../styles'
 
 const AboutYourself = () => {
-	const { login } = useAuth()
 	const [createOrgWithAdmin] = useMutation(CREATE_ORG_WITH_ADMIN)
 	const { state, dispatch } = React.useContext(context)
 	const [form, setForm] = React.useState({
@@ -56,7 +54,7 @@ const AboutYourself = () => {
 				}
 			}
 		})
-		login(`${window.location.origin}/dashboard`)
+		window.location = 'https://dashboard.dailykit.org'
 	}
 	const prevPage = () => {
 		dispatch({

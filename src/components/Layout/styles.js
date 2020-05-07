@@ -41,7 +41,7 @@ export const Main = styled.main`
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: ${props => `${(100 / 7) * props.step}%`};
+		width: ${props => `${(100 / 3) * props.step}%`};
 		height: 4px;
 		background: ${props => props.theme.colors.primary};
 	}
