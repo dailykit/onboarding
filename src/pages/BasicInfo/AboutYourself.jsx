@@ -36,10 +36,11 @@ const AboutYourself = () => {
 				...form
 			}
 		})
-		const { email, password, company } = state.user_data
+		const { email, password, company, subdomain } = state.user_data
 		await createOrgWithAdmin({
 			variables: {
 				organizationName: company,
+				organizationUrl: `${subdomain}.dailykit.org`,
 				organizationAdmins: {
 					data: [
 						{
@@ -54,8 +55,9 @@ const AboutYourself = () => {
 				}
 			}
 		})
-		window.location = 'https://dashboard.dailykit.org'
+		window.location = 'https://account.dailykit.org'
 	}
+
 	const prevPage = () => {
 		dispatch({
 			type: 'SET_FORM3',

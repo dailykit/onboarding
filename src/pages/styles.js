@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Footer = styled.footer(
 	({ theme: { basePt, colors } }) => `
@@ -127,4 +127,14 @@ export const Error = styled.span(
 	color: #fc3259;
 	font-weight: 400;
 `
+)
+
+export const Domain = styled.span(
+	({ theme: { basePt } }) => css`
+		display: block;
+		margin-bottom: ${basePt * 2}px;
+		font-size: ${basePt * 1.75}px;
+		color: #04a777;
+		font-weight: 400;
+	`
 )
