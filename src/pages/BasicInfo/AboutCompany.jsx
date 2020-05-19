@@ -77,7 +77,7 @@ const AboutCompany = () => {
 		} else {
 			setErrors({ ...errors, isValid: false })
 		}
-		fetchOrg({ variables: { _eq: e.target.value } })
+		fetchOrg({ variables: { _eq: `${e.target.value}.dailykit.org` } })
 	}
 
 	return (
@@ -140,7 +140,11 @@ const AboutCompany = () => {
 			</Main>
 			<Footer>
 				<button onClick={() => prevPage()}>Back</button>
-				<button onClick={() => nextPage()}>Next</button>
+				{errors.isUnique &&
+					errors.isValid &&
+					form.subdomain.length > 2 && (
+						<button onClick={() => nextPage()}>Next</button>
+					)}
 			</Footer>
 		</Wrapper>
 	)
