@@ -93,6 +93,7 @@ const AboutCompany = () => {
 								name="company"
 								required
 								value={form.company}
+								autoComplete="off"
 								onChange={e => handleChange(e)}
 							/>
 							<Label htmlFor="company">Company Name</Label>
@@ -104,6 +105,7 @@ const AboutCompany = () => {
 								id="subdomain"
 								name="subdomain"
 								value={form.subdomain}
+								autoComplete="off"
 								onBlur={e => validateSubdomain(e)}
 								onChange={e => handleChange(e)}
 							/>

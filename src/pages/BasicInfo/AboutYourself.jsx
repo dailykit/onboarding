@@ -321,6 +321,7 @@ const AboutYourself = () => {
 								name="firstName"
 								required
 								value={form.firstName}
+								autoComplete="off"
 								onChange={e => handleChange(e)}
 							/>
 							<Label htmlFor="firstName">First Name</Label>
@@ -332,6 +333,7 @@ const AboutYourself = () => {
 								name="lastName"
 								required
 								value={form.lastName}
+								autoComplete="off"
 								onChange={e => handleChange(e)}
 							/>
 							<Label htmlFor="lastName">Last Name</Label>
@@ -343,6 +345,7 @@ const AboutYourself = () => {
 								name="designation"
 								required
 								value={form.designation}
+								autoComplete="off"
 								onChange={e => handleChange(e)}
 							/>
 							<Label htmlFor="designation">
@@ -369,6 +372,7 @@ const AboutYourself = () => {
 									maxLength="10"
 									required
 									value={form.phoneNo}
+									autoComplete="off"
 									onChange={e => handleChange(e)}
 									style={{
 										width: '205px',

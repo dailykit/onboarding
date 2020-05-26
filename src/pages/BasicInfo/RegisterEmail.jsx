@@ -72,6 +72,7 @@ const RegisterEmail = () => {
 								name="email"
 								required
 								value={form.email}
+								autoComplete="off"
 								onChange={e => handleChange(e)}
 								onBlur={e => validateEmail(e)}
 							/>
@@ -87,6 +88,7 @@ const RegisterEmail = () => {
 								name="password"
 								required
 								value={form.password}
+								autoComplete="off"
 								onChange={e => handleChange(e)}
 							/>
 							<Label htmlFor="password">Password</Label>
