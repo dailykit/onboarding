@@ -36,9 +36,16 @@ const AboutYourself = () => {
 				...form
 			}
 		})
-		const { email, password, company, subdomain } = state.user_data
+		const {
+			email,
+			password,
+			company,
+			subdomain,
+			timezone
+		} = state.user_data
 		await createOrgWithAdmin({
 			variables: {
+				timeZone: timezone,
 				organizationName: company,
 				organizationUrl: `${subdomain}.dailykit.org`,
 				organizationAdmins: {

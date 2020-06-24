@@ -5,6 +5,7 @@ const state = {
 		email: '',
 		password: '',
 		company: '',
+		timezone: '',
 		employeesCount: '5',
 		firstName: '',
 		lastName: '',

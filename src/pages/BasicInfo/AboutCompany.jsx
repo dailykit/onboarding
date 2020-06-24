@@ -1,5 +1,13 @@
 import React from 'react'
+import styled from 'styled-components'
 import { useLazyQuery } from '@apollo/react-hooks'
+import {
+	Combobox,
+	ComboboxInput,
+	ComboboxPopover,
+	ComboboxList,
+	ComboboxOption
+} from '@reach/combobox'
 
 // State
 import { context } from '../../state'
@@ -17,13 +25,18 @@ import {
 } from '../styles'
 
 import { FETCH_ORG } from '../../graphql'
+import { useTimezones } from '../../utils'
 
 const AboutCompany = () => {
+	const [search, setSearch] = React.useState('')
+	const { timezones } = useTimezones(search)
 	const { state, dispatch } = React.useContext(context)
 	const [fetchOrg, { loading, data }] = useLazyQuery(FETCH_ORG)
+
 	const [form, setForm] = React.useState({
 		company: state.user_data.company,
 		subdomain: state.user_data.subdomain,
+		timezone: state.user_data.timezone,
 		employeesCount: state.user_data.employeesCount
 	})
 
@@ -120,6 +133,51 @@ const AboutCompany = () => {
 						{!errors.isValid && (
 							<Error>Entered value is not valid!</Error>
 						)}
+						<Combobox
+							aria-label="Timezones"
+							onSelect={item =>
+								handleChange({
+									target: { name: 'timezone', value: item }
+								})
+							}>
+							<StyledComboboxInput
+								value={form.timezone}
+								placeholder="Select Timezone"
+								onChange={e =>
+									setSearch(e.target.value) ||
+									handleChange({
+										target: {
+											name: 'timezone',
+											value: e.target.value
+										}
+									})
+								}
+							/>
+							{timezones.length > 0 && (
+								<StyledComboboxPopover>
+									{timezones.length > 0 ? (
+										<ComboboxList>
+											{timezones.map(timezone => {
+												return (
+													<ComboboxOption
+														key={timezone.title}
+														value={timezone.title}
+													/>
+												)
+											})}
+										</ComboboxList>
+									) : (
+										<span
+											style={{
+												display: 'block',
+												margin: 8
+											}}>
+											No results found
+										</span>
+									)}
+								</StyledComboboxPopover>
+							)}
+						</Combobox>
 						<Field>
 							<select
 								name="employeesCount"
@@ -153,3 +211,43 @@ const AboutCompany = () => {
 }
 
 export default AboutCompany
+
+const StyledComboboxPopover = styled(ComboboxPopover)`
+	padding: 4px 0;
+	margin-top: 4px;
+	background: #fff;
+	overflow-y: auto;
+	max-height: 340px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	[data-reach-combobox-option] {
+		padding: 4px 8px;
+		list-style: none;
+		:hover {
+			background: rgba(0, 0, 0, 0.1);
+		}
+	}
+	[data-user-value] {
+	}
+	[data-suggested-value] {
+		color: #ada9a9;
+	}
+`
+
+const StyledComboboxInput = styled(ComboboxInput)(
+	({ theme: { basePt, colors } }) => `
+   border: none;
+   color: #686d7b;
+   width: ${basePt * 40}px;
+   height: ${basePt * 6}px;
+   font-size: ${basePt * 1.75}px;
+   margin-bottom: ${basePt * 2}px;
+   border-bottom: 2px solid #e1e1e1;
+   &::placeholder {
+      color: #969696;
+   }
+   &:focus {
+      outline: transparent;
+      border-bottom: 2px solid #04a777;
+   }
+`
+)
