@@ -9,6 +9,7 @@ export const CREATE_ORG_WITH_ADMIN = gql`
 	) {
 		createOrganization(
 			object: {
+				timeZone: $timeZone
 				organizationName: $organizationName
 				organizationUrl: $organizationUrl
 				organizationAdmins: $organizationAdmins
