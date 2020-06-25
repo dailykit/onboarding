@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment-timezone'
 import styled from 'styled-components'
 import { useLazyQuery } from '@apollo/react-hooks'
 import {
@@ -36,8 +37,8 @@ const AboutCompany = () => {
 	const [form, setForm] = React.useState({
 		company: state.user_data.company,
 		subdomain: state.user_data.subdomain,
-		timezone: state.user_data.timezone,
-		employeesCount: state.user_data.employeesCount
+		employeesCount: state.user_data.employeesCount,
+		timezone: state.user_data.timezone || moment.tz.guess()
 	})
 
 	const [errors, setErrors] = React.useState({
@@ -154,7 +155,7 @@ const AboutCompany = () => {
 								}
 							/>
 							{timezones.length > 0 && (
-								<StyledComboboxPopover>
+								<StyledComboboxPopover portal={false}>
 									{timezones.length > 0 ? (
 										<ComboboxList>
 											{timezones.map(timezone => {
