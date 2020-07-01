@@ -67,7 +67,7 @@ const RegisterEmail = () => {
 					<Form>
 						<Field>
 							<input
-								type="text"
+								type="email"
 								id="email"
 								name="email"
 								required
