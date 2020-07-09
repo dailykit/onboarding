@@ -7,7 +7,7 @@ import App from './App'
 import './global.css'
 
 const client = new ApolloClient({
-	link: process.env.REACT_APP_DAILYCLOAK_URL,
+	uri: process.env.REACT_APP_DAILYCLOAK_URL,
 	request: operation => {
 		operation.setContext({
 			headers: {
